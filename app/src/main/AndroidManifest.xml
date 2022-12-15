@@ -12,6 +12,42 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KohiApp"
         tools:targetApi="31">
+
+        <!--   Add an activity with this block     -->
+        <activity
+            android:name=".DiaryActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".StudyTimerActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".SummonActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AnalyticsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <!--                                         -->
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
