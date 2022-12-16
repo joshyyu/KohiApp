@@ -7,14 +7,77 @@
     android:background="#E1C9A9"
     tools:context=".StudyTimerActivity">
 
+
     <Button
         android:id="@+id/button_toMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="340dp"
         android:text="Study"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.739" />
+
+    <TextView
+        android:id="@+id/textView_countdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:textColor="@color/black"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_Start_Pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.321"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_countdown"
+        app:layout_constraintVertical_bias="0.151" />
+
+    <Button
+        android:id="@+id/button_Reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reset"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.671"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_countdown"
+        app:layout_constraintVertical_bias="0.151"
+        android:visibility="invisible"
+        tools:visibility="visible"/>
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/GifImageView_GifStart"
+        android:layout_width="248dp"
+        android:layout_height="233dp"
+        android:src="@drawable/study_start"
+        app:layout_constraintBottom_toTopOf="@+id/textView_countdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/ImageView_GifStop"
+        android:layout_width="248dp"
+        android:layout_height="233dp"
+        android:src="@drawable/study_stop"
+        app:layout_constraintBottom_toTopOf="@+id/textView_countdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="visible" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
