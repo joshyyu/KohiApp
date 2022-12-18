@@ -127,6 +127,10 @@ public class StudyTimerActivity extends AppCompatActivity {
             xGifStop.setVisibility(View.VISIBLE);
             xGifStart.setVisibility(View.INVISIBLE);
         }
+        else {
+            xTextViewCountDown.setText("APP CLOSED!");
+        }
+
     }
 
     private void configureMenuButton() {
