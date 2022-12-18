@@ -15,7 +15,7 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class StudyTimerActivity extends AppCompatActivity {
 
-    private static final long START_TIME_IN_MILLIS = 600000;
+    private static final long START_TIME_IN_MILLIS = 6000;
     private TextView xTextViewCountDown;
     private Button xButtonStartPause,xButtonReset;
     private CountDownTimer xCountdownTimer;
@@ -23,6 +23,7 @@ public class StudyTimerActivity extends AppCompatActivity {
     private long xTimeLeftInMillis = START_TIME_IN_MILLIS;
     private ImageView xGifStop;
     private GifImageView xGifStart;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +38,6 @@ public class StudyTimerActivity extends AppCompatActivity {
 
         xGifStop = findViewById(R.id.ImageView_GifStop);
         xGifStart = findViewById(R.id.GifImageView_GifStart);
-
-
 
         xButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +78,10 @@ public class StudyTimerActivity extends AppCompatActivity {
                 xButtonStartPause.setText("Start");
                 xButtonStartPause.setVisibility(View.INVISIBLE);
                 xButtonReset.setVisibility(View.VISIBLE);
+
+                xTextViewCountDown.setText("Finished!");
+                xGifStop.setVisibility(View.VISIBLE);
+                xGifStart.setVisibility(View.INVISIBLE);
             }
         }.start();
 
@@ -108,13 +111,14 @@ public class StudyTimerActivity extends AppCompatActivity {
 
         String timeLeftFormatted = String.format(Locale.getDefault(),"%02d:%02d", minutes, seconds);
         xTextViewCountDown.setText(timeLeftFormatted);
+
     }
 
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
 
-        // Get the timer instance as the activity achieves full user focus
+        // If timer is running run cancel the countdown timer
         if (xTimerRunning) {
             xCountdownTimer.cancel();
             xTimerRunning = false;
