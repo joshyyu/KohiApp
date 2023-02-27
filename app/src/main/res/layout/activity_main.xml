@@ -9,7 +9,7 @@
     tools:context=".MainActivity">>
 
     <ImageView
-        android:id="@+id/mainTab"
+        android:id="@+id/mainTabTop"
         android:layout_width="344dp"
         android:layout_height="84dp"
         android:contentDescription="@string/attachment_summary_off"
