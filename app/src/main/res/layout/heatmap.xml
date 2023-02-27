@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <!-- Legend for the Heat Map -->
+    <LinearLayout
+        android:id="@+id/legend_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp">
+
+        <TextView
+            android:id="@+id/legend_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Activity Levels"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_gravity="center" />
+
+        <LinearLayout
+            android:id="@+id/legend_items_layout"
+            android:layout_width="296dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp"
+                android:background="@color/teal_200" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp"
+                android:text="Low"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp"
+                android:background="@color/main" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp"
+                android:text="Moderate"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp"
+                android:background="@color/material_dynamic_neutral90" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp"
+                android:text="High"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

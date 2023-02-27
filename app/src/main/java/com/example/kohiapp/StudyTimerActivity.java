@@ -27,7 +27,7 @@ public class StudyTimerActivity extends AppCompatActivity {
     private ImageView xGifStop;
     private GifImageView xGifStart;
     public static final String SHARED_PREFS = "sharedPrefs";
-    public static int counter;
+    public static int counter ;
 
     //sensor
 
@@ -93,7 +93,7 @@ public class StudyTimerActivity extends AppCompatActivity {
                 xTextViewCountDown.setText("Finished!");
                 xGifStop.setVisibility(View.VISIBLE);
                 xGifStart.setVisibility(View.INVISIBLE);
-                counter++;
+                counter = counter + 20;
                 updateCounterSet();
                 saveData();
             }
