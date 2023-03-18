@@ -7,7 +7,6 @@
     android:background="#E1C9A9"
     tools:context=".StudyTimerActivity">
 
-
     <Button
         android:id="@+id/button_toMain"
         android:layout_width="wrap_content"
@@ -32,6 +31,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="251dp"
+        android:layout_height="30dp"
+        android:progressDrawable="@drawable/custom_progress"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.618" />
+
     <Button
         android:id="@+id/button_Start_Pause"
         android:layout_width="wrap_content"
@@ -39,24 +52,24 @@
         android:text="Start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.321"
+        app:layout_constraintHorizontal_bias="0.312"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_countdown"
-        app:layout_constraintVertical_bias="0.151" />
+        app:layout_constraintVertical_bias="0.297" />
 
     <Button
         android:id="@+id/button_Reset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Reset"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.671"
+        app:layout_constraintHorizontal_bias="0.69"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_countdown"
-        app:layout_constraintVertical_bias="0.151"
-        android:visibility="invisible"
-        tools:visibility="visible"/>
+        app:layout_constraintVertical_bias="0.297"
+        tools:visibility="visible" />
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/GifImageView_GifStart"
