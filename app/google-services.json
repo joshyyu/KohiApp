@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "948711278261",
+    "project_id": "kohiapp-e57ca",
+    "storage_bucket": "kohiapp-e57ca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948711278261:android:a96feeaaf718a37479e0fc",
+        "android_client_info": {
+          "package_name": "com.example.kohiapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "948711278261-u4bvhaoogc7jbre002l7mmihuqcu85s7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyMAeTk1gWG5pjLNcNE1YWN-1GwiDfx-Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "948711278261-u4bvhaoogc7jbre002l7mmihuqcu85s7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

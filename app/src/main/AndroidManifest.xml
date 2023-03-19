@@ -12,9 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KohiApp"
         tools:targetApi="31">
+        <activity
+            android:name=".NoteAddActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <!-- Add an activity with this block -->
         <activity
-            android:name=".DiaryActivity"
+            android:name=".NoteActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
