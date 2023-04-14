@@ -1,9 +1,10 @@
-package com.example.kohiapp;
+package com.example.kohiapp.Notes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -36,6 +37,15 @@ public class NoteAddActivity extends AppCompatActivity {
 
             }
         });
+
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(NoteAddActivity.this, NoteActivity.class));
+                finish();
+            }
+        });
+
     }
 
     private void saveNote() {

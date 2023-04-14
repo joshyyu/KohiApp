@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/pastelcoffeespill"
-    tools:context=".NoteAddActivity">
+    tools:context=".Notes.NoteAddActivity">
 
     <RelativeLayout
         android:id="@+id/title_bar_layout"

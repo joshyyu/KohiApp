@@ -1,4 +1,4 @@
-package com.example.kohiapp;
+package com.example.kohiapp.Notes;
 
 public class NotesModel {
     private String id;

@@ -1,4 +1,4 @@
-package com.example.kohiapp;
+package com.example.kohiapp.Notes;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -50,6 +50,15 @@ public class NoteUpdateActivity extends AppCompatActivity {
                 updateNote();
             }
         });
+
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(NoteUpdateActivity.this, NoteActivity.class));
+                finish();
+            }
+        });
+
     }
 
     private void updateNote() {

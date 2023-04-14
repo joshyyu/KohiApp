@@ -1,4 +1,4 @@
-package com.example.kohiapp;
+package com.example.kohiapp.Notes;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.kohiapp.MainActivity;
 import com.example.kohiapp.databinding.ActivityNoteBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -49,6 +50,14 @@ public class NoteActivity extends AppCompatActivity {
                 startActivity(new Intent(NoteActivity.this, NoteAddActivity.class));
             }
         });
+
+        binding.buttonToMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(NoteActivity.this, MainActivity.class));
+            }
+        });
+
         binding.searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -85,60 +94,10 @@ public class NoteActivity extends AppCompatActivity {
         noteAdapter.filterList(notesModelList);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        ProgressDialog progressDialog=new ProgressDialog(this);
-        progressDialog.setTitle("Checking User");
-        progressDialog.setMessage("in process");
-        progressDialog.show();
-
-        FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
-
-        if (firebaseAuth.getCurrentUser()== null){
-            firebaseAuth.signInAnonymously().addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                @Override
-                public void onSuccess(AuthResult authResult) {
-                    progressDialog.cancel();
-                    Toast.makeText(NoteActivity.this, "It worked", Toast.LENGTH_SHORT).show();
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    progressDialog.cancel();
-                    Toast.makeText(NoteActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-
-
-                }
-            });
-
-        }else if (firebaseAuth.getCurrentUser()!= null) {
-            firebaseAuth.signInAnonymously().addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                @Override
-                public void onSuccess(AuthResult authResult) {
-                    progressDialog.cancel();
-                    Toast.makeText(NoteActivity.this, "Logged in Annomysly", Toast.LENGTH_SHORT).show();
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    progressDialog.cancel();
-                    Toast.makeText(NoteActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-
-
-                }
-            });
-        }
-
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-
 
         getDataData();
     }
