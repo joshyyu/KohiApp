@@ -175,9 +175,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
     }
-
 
     public void saveData() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
