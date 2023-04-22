@@ -27,7 +27,10 @@
     <color name="color_muted_yellow_green">#AFAD55</color>
     <color name="color_warm_white">#F5E8D9</color>
     <color name="color_warm_peach">#EADAB7</color>
+    <color name="light_brown">#D1AC99</color>
     <color name="color_muted_brownish_red">#8D5F48</color>
     <color name="color_dark_reddish_brown">#502C18</color>
+    <color name="primary_brown">#E1C9A9</color>
+
 
 </resources>

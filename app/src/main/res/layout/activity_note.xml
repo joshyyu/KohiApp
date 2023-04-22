@@ -48,7 +48,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/notes_recycler"
             android:layout_width="match_parent"
-            android:layout_height="403dp"
+            android:layout_height="202dp"
             android:layout_below="@+id/search"
             android:orientation="vertical"
             android:padding="12dp"

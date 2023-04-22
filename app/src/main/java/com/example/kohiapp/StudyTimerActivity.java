@@ -1,7 +1,6 @@
 package com.example.kohiapp;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -11,7 +10,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Locale;
 
@@ -27,9 +34,10 @@ public class StudyTimerActivity extends AppCompatActivity {
     private ImageView xGifStop;
     private GifImageView xGifStart;
     private ProgressBar progressBar;
-    public static final String SHARED_PREFS = "sharedPrefs";
-    public static int counter;
-    //sensor
+    public int counter;
+    private FirebaseFirestore db;
+    private long elapsedTime;
+    private long startTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +54,8 @@ public class StudyTimerActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_bar);
         progressBar.setMax((int) MainActivity.START_TIME_IN_MILLIS);
         progressBar.setVisibility(View.VISIBLE); // set the progress bar to visible
+        // Initialize Firestore
+        db = FirebaseFirestore.getInstance();
 
         xButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +91,7 @@ public class StudyTimerActivity extends AppCompatActivity {
                 progressBar.setMax(100);
                 int progress = (int) ((MainActivity.START_TIME_IN_MILLIS - millisUntilFinished) * 100 / MainActivity.START_TIME_IN_MILLIS);
                 progressBar.setProgress(progress);
+                startTime = MainActivity.START_TIME_IN_MILLIS;
             }
 
             @Override
@@ -95,7 +106,9 @@ public class StudyTimerActivity extends AppCompatActivity {
                 xGifStart.setVisibility(View.INVISIBLE);
                 counter = counter + 20;
                 updateCounterSet();
+                elapsedTime = MainActivity.START_TIME_IN_MILLIS;
                 saveData();
+
             }
         }.start();
 
@@ -111,6 +124,7 @@ public class StudyTimerActivity extends AppCompatActivity {
         xTimerRunning = false;
         xButtonStartPause.setText("Start");
         xButtonReset.setVisibility(View.VISIBLE);
+
     }
 
     private void resetTimer() {
@@ -172,22 +186,69 @@ public class StudyTimerActivity extends AppCompatActivity {
         counterView.setText(String.valueOf(value));
     }*/
 
-    public void saveData() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+    private void saveData() {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Saving");
+        progressDialog.setMessage("your data");
+        progressDialog.show();
+        String userID = firebaseAuth.getUid();
 
-        String counterValue = xCounterText.getText().toString();
-        int counterInt = Integer.parseInt(counterValue);
-        editor.putInt("counter", counterInt);
-        editor.apply();
-        Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
+        UserModel userCounter = new UserModel(counter, userID);
+        StudyTimerModel studyTimerData = new StudyTimerModel(userID, startTime, elapsedTime);
+
+        db.collection("users_data").document(userID).set(userCounter)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(getApplicationContext(), "Data saved successfully!", Toast.LENGTH_SHORT).show();
+                        progressDialog.cancel();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        progressDialog.cancel();
+                    }
+                });
+
+        db.collection("user_timer").add(studyTimerData)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Toast.makeText(getApplicationContext(), "Data saved successfully!", Toast.LENGTH_SHORT).show();
+                        progressDialog.cancel();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        progressDialog.cancel();
+                    }
+                });
+
     }
 
-    public void loadData() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        counter = sharedPreferences.getInt("counter", 0);
-        xCounterText.setText(String.valueOf(counter));
+
+    private void loadData() {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String userID = firebaseAuth.getUid();
+        db.collection("users_data").document(userID)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            counter = documentSnapshot.getLong("counter").intValue();
+                            updateCounterSet();
+                        }
+                    }
+                });
     }
+
+
 
     private void configureMenuButton() {
         Button button_toMain = (Button) findViewById(R.id.button_toMain);
@@ -197,6 +258,8 @@ public class StudyTimerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //intent used to connect components
+                elapsedTime =  MainActivity.START_TIME_IN_MILLIS - xTimeLeftInMillis ;
+                saveData();
                 finish();
             }
         });

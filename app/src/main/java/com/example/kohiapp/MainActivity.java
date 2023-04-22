@@ -1,6 +1,6 @@
 package com.example.kohiapp;
 
-import static com.example.kohiapp.StudyTimerActivity.SHARED_PREFS;
+//import static com.example.kohiapp.StudyTimerActivity.SHARED_PREFS;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -23,7 +23,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static int currentWallpaper;
@@ -45,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         TextView name = findViewById(R.id.username);
 
         configureMenuButton();
-        loadData();
+//        loadData();
 
         int wallpaperIndex = Math.max(0, Math.min(currentWallpaper, WALLPAPER_RESOURCES.length - 1));
         yConstraintLayout.setBackgroundResource(WALLPAPER_RESOURCES[wallpaperIndex]);
@@ -78,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 R.id.btn30min, R.id.btn1hour, R.id.btn90min,
                 R.id.btn2hour, R.id.btn150min, R.id.btn3hour
         };
-        long[] buttonTimes = {30, 60, 90, 120, 150, 180};
+        long[] buttonTimes = {1, 60, 90, 120, 150, 180};
 
         for (int i = 0; i < buttonIds.length; i++) {
             ImageButton button_toTimer = findViewById(buttonIds[i]);
@@ -87,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             button_toTimer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    START_TIME_IN_MILLIS = time * 60 * 100;
+                    START_TIME_IN_MILLIS = time * 20 * 100;
                     startActivity(new Intent(MainActivity.this, StudyTimerActivity.class));
                 }
             });
@@ -118,55 +122,101 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-              btnSignOut.setOnClickListener(new View.OnClickListener() {
+        btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                if (firebaseUser != null && firebaseUser.isAnonymous()) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                FirebaseUser user = auth.getCurrentUser();
+
+                if (user != null && user.isAnonymous()) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                     builder.setMessage("Are you sure you want to delete your account? Your data will be deleted. Since you are a guest, please register as a user to save your data.")
                             .setCancelable(false)
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    // Delete the user document from Firestore
-                                    FirebaseFirestore.getInstance().collection("users")
-                                            .document(firebaseUser.getUid())
-                                            .delete()
+                                    // Delete the user documents from Firestore
+                                    db.collection("users_data").document(user.getUid()).delete()
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
-                                                    firebaseUser.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                        @Override
-                                                        public void onSuccess(Void aVoid) {
-                                                            startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                                                            finish();
-                                                        }
-                                                    }).addOnFailureListener(new OnFailureListener() {
-                                                        @Override
-                                                        public void onFailure(@NonNull Exception e) {
-                                                            Toast.makeText(MainActivity.this, "Failed to delete Firebase user account.", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    });
+                                                    db.collection("user_timer").whereEqualTo("userID", user.getUid())
+                                                            .get()
+                                                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                                                @Override
+                                                                public void onSuccess(QuerySnapshot querySnapshot) {
+                                                                    List<DocumentSnapshot> documents = querySnapshot.getDocuments();
+                                                                    for (DocumentSnapshot document : documents) {
+                                                                        document.getReference().delete();
+                                                                    }
+                                                                    db.collection("notes").whereEqualTo("uid", user.getUid())
+                                                                            .get()
+                                                                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                                                                @Override
+                                                                                public void onSuccess(QuerySnapshot querySnapshot) {
+                                                                                    List<DocumentSnapshot> documents = querySnapshot.getDocuments();
+                                                                                    for (DocumentSnapshot document : documents) {
+                                                                                        document.getReference().delete();
+                                                                                    }
+                                                                                    db.collection("users_wallpaper_data").document(user.getUid()).delete()
+                                                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                                @Override
+                                                                                                public void onSuccess(Void aVoid) {
+                                                                                                    user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                                        @Override
+                                                                                                        public void onSuccess(Void aVoid) {
+                                                                                                            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                                                                                                            finish();
+                                                                                                        }
+                                                                                                    }).addOnFailureListener(new OnFailureListener() {
+                                                                                                        @Override
+                                                                                                        public void onFailure(@NonNull Exception e) {
+                                                                                                            Toast.makeText(MainActivity.this, "Failed to delete Firebase user account.", Toast.LENGTH_SHORT).show();
+                                                                                                        }
+                                                                                                    });
+                                                                                                }
+                                                                                            })
+                                                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                                                @Override
+                                                                                                public void onFailure(@NonNull Exception e) {
+                                                                                                    Toast.makeText(MainActivity.this, "Failed to delete user wallpaper data.", Toast.LENGTH_SHORT).show();
+                                                                                                }
+                                                                                            });
+                                                                                }
+                                                                            })
+                                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                                @Override
+                                                                                public void onFailure(@NonNull Exception e) {
+                                                                                    Toast.makeText(MainActivity.this, "Failed to delete user notes data.", Toast.LENGTH_SHORT).show();
+                                                                                }
+                                                                            });
+                                                                }
+                                                            })
+                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    Toast.makeText(MainActivity.this, "Failed to delete user timer data.", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            });
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {
                                                 @Override
                                                 public void onFailure(@NonNull Exception e) {
-                                                    Toast.makeText(MainActivity.this, "Failed to delete user document.", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(MainActivity.this, "Failed to delete user data.", Toast.LENGTH_SHORT).show();
                                                 }
                                             });
                                 }
                             })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    // User cancelled the dialog
-                                    dialog.dismiss();
+                                    dialog.cancel();
                                 }
                             });
                     AlertDialog alert = builder.create();
                     alert.show();
-                } else {
+                }
+                else {
                     // The user is not anonymous, so just sign out
                     FirebaseAuth.getInstance().signOut();
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
@@ -177,15 +227,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void saveData() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("currentWallpaper", currentWallpaper);
-        editor.apply();
-    }
-
-    private void loadData() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        currentWallpaper = sharedPreferences.getInt("currentWallpaper", 0);
-    }
+//    public void saveData() {
+//        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putInt("currentWallpaper", currentWallpaper);
+//        editor.apply();
+//    }
+//
+//    private void loadData() {
+//        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+//        currentWallpaper = sharedPreferences.getInt("currentWallpaper", 0);
+//    }
 }
