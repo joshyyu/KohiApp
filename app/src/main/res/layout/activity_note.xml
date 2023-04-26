@@ -24,7 +24,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="478dp"
         android:layout_below="@+id/title"
         android:orientation="vertical"
@@ -48,7 +48,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/notes_recycler"
             android:layout_width="match_parent"
-            android:layout_height="202dp"
+            android:layout_height="match_parent"
             android:layout_below="@+id/search"
             android:orientation="vertical"
             android:padding="12dp"

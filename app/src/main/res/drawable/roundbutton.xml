@@ -31,7 +31,7 @@
             <item android:bottom="3dp" android:left="3dp">
                 <shape>
                     <stroke android:color="@color/black" android:width="1dp"/>
-                    <solid android:color="#D8A542" />
+                    <solid android:color="@color/color_lavender_pink" />
                     <corners android:radius="20dp" />
                 </shape>
             </item>

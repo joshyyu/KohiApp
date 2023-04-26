@@ -23,10 +23,9 @@ import java.util.Random;
 public class SummonActivity extends AppCompatActivity {
 
     public int counter;
-    public boolean backgroundWhite, backgroundBlue, backgroundMain;
+    public boolean backgroundWhite = true, backgroundBlue = true, backgroundMain = true;
     public int currentWallpaper;
     private FirebaseFirestore db;
-
 
     Button zsummon, zbgWhite, zbgBlue, zbgMain, zResetTemp;
     TextView zreward_text, zcounter;
@@ -109,7 +108,7 @@ public class SummonActivity extends AppCompatActivity {
                             backgroundMain = wallpaperModel.isBackgroundMain();
 
                             if (currentWallpaper == 1) {
-                                zConstraintLayout.setBackgroundResource(R.drawable.brownlinebg);
+                                zConstraintLayout.setBackgroundResource(R.drawable.pastelbrownlinebg);
                             }
                             else if (currentWallpaper == 2) {
                                 zConstraintLayout.setBackgroundColor(getResources().getColor(R.color.teal_200));
@@ -128,9 +127,7 @@ public class SummonActivity extends AppCompatActivity {
                         }
                     }
                 });
-
     }
-
 
 //    private void loadData() {
 //        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
@@ -193,7 +190,7 @@ public class SummonActivity extends AppCompatActivity {
         r = new Random();
 
         if (currentWallpaper == 1) {
-            zConstraintLayout.setBackgroundResource(R.drawable.brownlinebg);
+            zConstraintLayout.setBackgroundResource(R.drawable.pastelbrownlinebg);
         }
         else if (currentWallpaper == 2) {
             zConstraintLayout.setBackgroundColor(getResources().getColor(R.color.teal_200));
@@ -245,7 +242,7 @@ public class SummonActivity extends AppCompatActivity {
         zbgWhite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                zConstraintLayout.setBackgroundResource(R.drawable.brownlinebg);
+                zConstraintLayout.setBackgroundResource(R.drawable.pastelbrownlinebg);
                 currentWallpaper = 1;
                 wallpaper();
             }

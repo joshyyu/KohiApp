@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -26,8 +27,8 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class StudyTimerActivity extends AppCompatActivity {
 
-    private TextView xTextViewCountDown, xCounterText;
-    private Button xButtonStartPause, xButtonReset;
+    private TextView xTextViewCountDown, xCounterText,xButtonStartPauseText,xButtonResetText;
+    private ImageButton xButtonStartPause, xButtonReset;
     private CountDownTimer xCountdownTimer;
     private boolean xTimerRunning;
     private long xTimeLeftInMillis = MainActivity.START_TIME_IN_MILLIS; // use START_TIME_IN_MILLIS from MainActivity
@@ -45,9 +46,12 @@ public class StudyTimerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_studytimer);
 
         configureMenuButton();
+
         xTextViewCountDown = findViewById(R.id.textView_countdown);
         xButtonStartPause = findViewById(R.id.button_Start_Pause);
         xButtonReset = findViewById(R.id.button_Reset);
+        xButtonStartPauseText = findViewById(R.id.text_Start_Pause);
+        xButtonResetText = findViewById(R.id.text_Reset);
         xCounterText = findViewById(R.id.counter_text);
         xGifStop = findViewById(R.id.ImageView_GifStop);
         xGifStart = findViewById(R.id.GifImageView_GifStart);
@@ -97,9 +101,11 @@ public class StudyTimerActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 xTimerRunning = false;
-                xButtonStartPause.setText("Start");
+                xButtonStartPauseText.setText("Start");
                 xButtonStartPause.setVisibility(View.INVISIBLE);
+                xButtonStartPauseText.setVisibility(View.INVISIBLE);
                 xButtonReset.setVisibility(View.VISIBLE);
+                xButtonResetText.setVisibility(View.VISIBLE);
 
                 xTextViewCountDown.setText("Finished!");
                 xGifStop.setVisibility(View.VISIBLE);
@@ -113,8 +119,9 @@ public class StudyTimerActivity extends AppCompatActivity {
         }.start();
 
         xTimerRunning = true;
-        xButtonStartPause.setText("Pause");
+        xButtonStartPauseText.setText("Pause");
         xButtonReset.setVisibility(View.INVISIBLE);
+        xButtonResetText.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE); // set the progress bar to visible
     }
 
@@ -122,8 +129,9 @@ public class StudyTimerActivity extends AppCompatActivity {
     private void pauseTimer() {
         xCountdownTimer.cancel();
         xTimerRunning = false;
-        xButtonStartPause.setText("Start");
+        xButtonStartPauseText.setText("Start");
         xButtonReset.setVisibility(View.VISIBLE);
+        xButtonResetText.setVisibility(View.VISIBLE);
 
     }
 
@@ -131,8 +139,10 @@ public class StudyTimerActivity extends AppCompatActivity {
         xTimeLeftInMillis = MainActivity.START_TIME_IN_MILLIS;
         updateCountDownText();
         xButtonReset.setVisibility(View.INVISIBLE);
+        xButtonResetText.setVisibility(View.INVISIBLE);
         xButtonStartPause.setVisibility(View.VISIBLE);
-        progressBar.setProgress((int) MainActivity.START_TIME_IN_MILLIS);
+        xButtonStartPauseText.setVisibility(View.VISIBLE);
+        progressBar.setProgress(0); // reset progress bar to 0
         progressBar.setVisibility(View.VISIBLE);
     }
 
@@ -161,8 +171,9 @@ public class StudyTimerActivity extends AppCompatActivity {
         if (xTimerRunning) {
             xCountdownTimer.cancel();
             xTimerRunning = false;
-            xButtonStartPause.setText("APP CLOSED!");
+            xButtonStartPauseText.setText("APP CLOSED!");
             xButtonReset.setVisibility(View.VISIBLE);
+            xButtonResetText.setVisibility(View.VISIBLE);
             xGifStop.setVisibility(View.VISIBLE);
             xGifStart.setVisibility(View.INVISIBLE);
         } else {
@@ -251,7 +262,7 @@ public class StudyTimerActivity extends AppCompatActivity {
 
 
     private void configureMenuButton() {
-        Button button_toMain = (Button) findViewById(R.id.button_toMain);
+        ImageButton button_toMain = (ImageButton) findViewById(R.id.button_toMain);
 
         //lestiner to when its clicked
         button_toMain.setOnClickListener(new View.OnClickListener() {

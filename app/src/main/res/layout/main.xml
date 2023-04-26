@@ -5,14 +5,13 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/pastelcoffeespill"
-    tools:context=".MainActivity">
+    android:background="@drawable/pastelcoffeespill">
 
     <ImageView
         android:id="@+id/mainTab"
         android:layout_width="344dp"
         android:layout_height="84dp"
-        android:contentDescription="@string/attachment_summary_off"
+        android:contentDescription="null"
         android:rotationX="-190"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,6 +19,42 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/roundrectangle" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="274dp"
+        android:layout_height="26dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/mainTab"
+        app:layout_constraintEnd_toEndOf="@+id/mainTab"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="@+id/mainTab"
+        app:layout_constraintTop_toTopOf="@+id/mainTab"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Diary"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="87dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Summon"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Anlytics"
+            android:textAlignment="center" />
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutTop"
@@ -237,8 +272,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout3"
-            android:layout_width="367dp"
-            android:layout_height="393dp"
+            android:layout_width="364dp"
+            android:layout_height="391dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -449,7 +484,7 @@
 
                             <ImageButton
                                 android:id="@+id/btn1hour"
-                                android:layout_width="141dp"
+                                android:layout_width="145dp"
                                 android:layout_height="63dp"
                                 android:layout_marginBottom="12dp"
                                 android:background="@null"
@@ -663,39 +698,37 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:layout_width="274dp"
-        android:layout_height="26dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/mainTab"
-        app:layout_constraintEnd_toEndOf="@+id/mainTab"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintStart_toStartOf="@+id/mainTab"
-        app:layout_constraintTop_toTopOf="@+id/mainTab"
-        app:layout_constraintVertical_bias="1.0">
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="This is the username"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainTab" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="Diary"
-            android:textAlignment="center" />
+    <Button
+        android:id="@+id/btn_sign_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign out"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/username" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="87dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Summon"
-            android:textAlignment="center" />
+    <Button
+        android:id="@+id/btn_splash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Splash"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.084"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/username"
+        app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Anlytics"
-            android:textAlignment="center" />
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
