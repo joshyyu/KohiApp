@@ -1,58 +1,47 @@
 package com.example.kohiapp;
 
-//import static com.example.kohiapp.StudyTimerActivity.SHARED_PREFS;
+//import static com.example.kohiapp.StudyTimer.StudyTimerActivity.SHARED_PREFS;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.kohiapp.Gacha.DesignActivity;
+import com.example.kohiapp.Gacha.SummonActivity;
+import com.example.kohiapp.Gacha.WallpaperModel;
 import com.example.kohiapp.Notes.NoteActivity;
-import com.google.android.gms.tasks.OnFailureListener;
+import com.example.kohiapp.StudyTimer.StudyTimerActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    public static int currentWallpaper;
+    public int currentWallpaper;
     public static long START_TIME_IN_MILLIS = 30 * 60 * 1000; // initialize to a default value
+    private FirebaseFirestore db;
+    private int counter;
+    TextView zcounter;
 
-    private static final int[] WALLPAPER_RESOURCES = {
-            R.drawable.pastelcoffeespill,
-            R.drawable.pastelbrownlinebg,
-            R.color.teal_200,
-            R.color.main,
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ConstraintLayout yConstraintLayout = findViewById(R.id.activity_main);
         TextView name = findViewById(R.id.username);
+        db = FirebaseFirestore.getInstance();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        zcounter = findViewById(R.id.coffeeAmmount);
 
         configureMenuButton();
-//        loadData();
-
-        int wallpaperIndex = Math.max(0, Math.min(currentWallpaper, WALLPAPER_RESOURCES.length - 1));
-        yConstraintLayout.setBackgroundResource(WALLPAPER_RESOURCES[wallpaperIndex]);
+        loadData();
 
         // Retrieve the current user
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -70,6 +59,39 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void loadData() {
+        ConstraintLayout yConstraintLayout = findViewById(R.id.activity_main);
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String userID = firebaseAuth.getUid();
+
+        db.collection("users_data").document(userID)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            counter = documentSnapshot.getLong("counter").intValue();
+                            zcounter.setText(String.valueOf(counter)); // update the TextView with the loaded counter value
+                        }
+                    }
+                });
+
+        db.collection("users_wallpaper_data").document(userID)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            WallpaperModel wallpaperModel = documentSnapshot.toObject(WallpaperModel.class);
+                            currentWallpaper = wallpaperModel.getCurrentWallpaper();
+
+                            LoadData wallpaperManager = new LoadData(yConstraintLayout, currentWallpaper);
+                            wallpaperManager.loadWallpaperData();
+                        }
+                    }
+                });
+
+    }
 
     private void configureMenuButton() {
         ImageButton button_toDiary = findViewById(R.id.button_toDiary);
@@ -125,6 +147,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+                finish();
+            }
+        });
+
+        ImageButton buttonToDesign = findViewById(R.id.button_toDesign);
+        buttonToDesign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, DesignActivity.class));
                 finish();
             }
         });

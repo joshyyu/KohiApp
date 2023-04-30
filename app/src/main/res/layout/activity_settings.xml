@@ -7,9 +7,8 @@
     android:background="@color/main"
     tools:context=".SettingsActivity">
 
-
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/title_gacha"
         android:layout_width="95dp"
         android:layout_height="56dp"
         android:layout_marginTop="16dp"
@@ -30,7 +29,7 @@
         android:background="@null"
         android:contentDescription="@string/attachment_summary_off"
         android:scaleType="fitCenter"
-        app:layout_constraintEnd_toStartOf="@+id/textView13"
+        app:layout_constraintEnd_toStartOf="@+id/title_gacha"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -44,7 +43,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/title_gacha"
         app:layout_constraintVertical_bias="0.100000024"
         app:srcCompat="@drawable/noteroundbuttonshadow" />
 

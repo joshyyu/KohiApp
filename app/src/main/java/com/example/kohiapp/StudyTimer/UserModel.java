@@ -1,4 +1,4 @@
-package com.example.kohiapp;
+package com.example.kohiapp.StudyTimer;
 
 public class UserModel {
     private int counter;

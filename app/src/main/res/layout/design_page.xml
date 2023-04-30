@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gachabg"
-    tools:context=".SummonActivity">
+    tools:context=".Gacha.SummonActivity">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +17,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout9">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout9"
+        app:layout_constraintVertical_bias="0.049">
 
         <ImageView
             android:id="@+id/imageView27"
@@ -48,7 +49,7 @@
 
         <ImageView
             android:id="@+id/imageView21"
-            android:layout_width="329dp"
+            android:layout_width="330dp"
             android:layout_height="247dp"
             android:layout_marginTop="28dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -68,14 +69,14 @@
             android:background="@null"
             android:contentDescription="@string/attachment_summary_off"
             android:scaleType="fitCenter"
-            app:layout_constraintEnd_toStartOf="@+id/textView13"
+            app:layout_constraintEnd_toStartOf="@+id/title_gacha"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/imageView21"
             app:layout_constraintTop_toTopOf="@+id/imageView21"
             app:srcCompat="@drawable/backmark" />
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/title_gacha"
             android:layout_width="123dp"
             android:layout_height="64dp"
             android:autoSizeTextType="uniform"
@@ -87,7 +88,7 @@
             app:layout_constraintTop_toTopOf="@+id/imageView21" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/btn_summon"
             android:layout_width="163dp"
             android:layout_height="69dp"
             android:layout_marginBottom="16dp"
@@ -97,7 +98,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView13"
+            app:layout_constraintTop_toBottomOf="@+id/title_gacha"
             app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/roundbutton" />
 
@@ -110,20 +111,20 @@
             android:text="Summon"
             android:textSize="32sp"
             android:textStyle="italic"
-            app:layout_constraintBottom_toBottomOf="@+id/imageButton"
-            app:layout_constraintEnd_toEndOf="@+id/imageButton"
-            app:layout_constraintStart_toStartOf="@+id/imageButton"
-            app:layout_constraintTop_toTopOf="@+id/imageButton" />
+            app:layout_constraintBottom_toBottomOf="@+id/btn_summon"
+            app:layout_constraintEnd_toEndOf="@+id/btn_summon"
+            app:layout_constraintStart_toStartOf="@+id/btn_summon"
+            app:layout_constraintTop_toTopOf="@+id/btn_summon" />
 
         <TextView
             android:id="@+id/textView21"
             android:layout_width="244dp"
             android:layout_height="wrap_content"
             android:text="Use your points to unlock awsome rewards!"
-            app:layout_constraintBottom_toTopOf="@+id/imageButton"
+            app:layout_constraintBottom_toTopOf="@+id/btn_summon"
             app:layout_constraintEnd_toEndOf="@+id/imageView21"
             app:layout_constraintStart_toStartOf="@+id/imageView21"
-            app:layout_constraintTop_toBottomOf="@+id/textView13"
+            app:layout_constraintTop_toBottomOf="@+id/title_gacha"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
@@ -131,7 +132,7 @@
             android:layout_width="244dp"
             android:layout_height="wrap_content"
             android:text="Recieve a new design by using your points"
-            app:layout_constraintBottom_toTopOf="@+id/imageButton"
+            app:layout_constraintBottom_toTopOf="@+id/btn_summon"
             app:layout_constraintEnd_toEndOf="@+id/textView21"
             app:layout_constraintHorizontal_bias="0.487"
             app:layout_constraintStart_toStartOf="@+id/textView21"
@@ -201,7 +202,7 @@
                 app:srcCompat="@drawable/coffee_bean" />
 
             <TextView
-                android:id="@+id/textView35"
+                android:id="@+id/counter_display_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -215,5 +216,17 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/reward_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout8"
+        app:layout_constraintVertical_bias="0.236" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

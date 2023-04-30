@@ -1,4 +1,4 @@
-package com.example.kohiapp;
+package com.example.kohiapp.StudyTimer;
 
 import com.google.firebase.Timestamp;
 

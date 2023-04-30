@@ -13,6 +13,13 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".Gacha.DesignActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".SettingsActivity"
             android:exported="false">
             <meta-data
@@ -62,14 +69,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".StudyTimerActivity"
+            android:name=".StudyTimer.StudyTimerActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".SummonActivity"
+            android:name=".Gacha.SummonActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

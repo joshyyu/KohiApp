@@ -69,11 +69,15 @@ public class SettingsActivity extends AppCompatActivity {
                     dialog.setContentView(R.layout.setting_layout);
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+                    // prevent the dialog from being dismissed when the user clicks outside of it
+                    dialog.setCanceledOnTouchOutside(false);
+
                     // Get the Yes and No ImageButtons from the dialog layout
                     ImageButton yesButton = dialog.findViewById(R.id.yes_button);
                     ImageButton noButton = dialog.findViewById(R.id.no_button);
 
                     // Set onClickListeners for the Yes and No ImageButtons
+
                     yesButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -104,19 +108,47 @@ public class SettingsActivity extends AppCompatActivity {
                                                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                                         @Override
                                                                                         public void onSuccess(Void aVoid) {
-                                                                                            user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                                                @Override
-                                                                                                public void onSuccess(Void aVoid) {
-                                                                                                    dialog.dismiss();
-                                                                                                    startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
-                                                                                                    finish();
-                                                                                                }
-                                                                                            }).addOnFailureListener(new OnFailureListener() {
-                                                                                                @Override
-                                                                                                public void onFailure(@NonNull Exception e) {
-                                                                                                    Toast.makeText(SettingsActivity.this, "Failed to delete Firebase user account.", Toast.LENGTH_SHORT).show();
-                                                                                                }
-                                                                                            });
+                                                                                            db.collection("users_rewards").document(user.getUid()).collection("rewards").get()
+                                                                                                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                                                                                        @Override
+                                                                                                        public void onSuccess(QuerySnapshot querySnapshot) {
+                                                                                                            List<DocumentSnapshot> documents = querySnapshot.getDocuments();
+                                                                                                            for (DocumentSnapshot document : documents) {
+                                                                                                                document.getReference().delete();
+                                                                                                            }
+                                                                                                            db.collection("users_rewards").document(user.getUid()).delete()
+                                                                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                                                        @Override
+                                                                                                                        public void onSuccess(Void aVoid) {
+                                                                                                                            user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                                                                @Override
+                                                                                                                                public void onSuccess(Void aVoid) {
+                                                                                                                                    dialog.dismiss();
+                                                                                                                                    startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
+                                                                                                                                    finish();
+                                                                                                                                }
+                                                                                                                            }).addOnFailureListener(new OnFailureListener() {
+                                                                                                                                @Override
+                                                                                                                                public void onFailure(@NonNull Exception e) {
+                                                                                                                                    Toast.makeText(SettingsActivity.this, "Failed to delete Firebase user account.", Toast.LENGTH_SHORT).show();
+                                                                                                                                }
+                                                                                                                            });
+                                                                                                                        }
+                                                                                                                    })
+                                                                                                                    .addOnFailureListener(new OnFailureListener() {
+                                                                                                                        @Override
+                                                                                                                        public void onFailure(@NonNull Exception e) {
+                                                                                                                            Toast.makeText(SettingsActivity.this, "Failed to delete user rewards data.", Toast.LENGTH_SHORT).show();
+                                                                                                                        }
+                                                                                                                    });
+                                                                                                        }
+                                                                                                    })
+                                                                                                    .addOnFailureListener(new OnFailureListener() {
+                                                                                                        @Override
+                                                                                                        public void onFailure(@NonNull Exception e) {
+                                                                                                            Toast.makeText(SettingsActivity.this, "Failed to delete user rewards data.", Toast.LENGTH_SHORT).show();
+                                                                                                        }
+                                                                                                    });
                                                                                         }
                                                                                     })
                                                                                     .addOnFailureListener(new OnFailureListener() {
@@ -151,7 +183,6 @@ public class SettingsActivity extends AppCompatActivity {
                                     });
                         }
                     });
-
                     noButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

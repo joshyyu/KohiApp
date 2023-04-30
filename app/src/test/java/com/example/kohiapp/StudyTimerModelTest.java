@@ -2,6 +2,7 @@ package com.example.kohiapp;
 
 import static org.junit.Assert.assertEquals;
 
+import com.example.kohiapp.StudyTimer.StudyTimerModel;
 import com.google.firebase.Timestamp;
 
 import org.junit.Test;

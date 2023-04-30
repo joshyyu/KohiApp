@@ -113,4 +113,7 @@ public class SplashActivity extends AppCompatActivity {
             mediaPlayer = null;
         }
     }
+
+
+
 }
