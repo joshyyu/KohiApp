@@ -10,9 +10,9 @@
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/GifImageView_GifStart"
-        android:layout_width="188dp"
-        android:layout_height="165dp"
-        android:src="@drawable/study_start"
+        android:layout_width="189dp"
+        android:layout_height="161dp"
+        android:src="@drawable/bg_default"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,9 +23,9 @@
 
     <ImageView
         android:id="@+id/ImageView_GifStop"
-        android:layout_width="188dp"
-        android:layout_height="165dp"
-        android:src="@drawable/study_stop"
+        android:layout_width="189dp"
+        android:layout_height="161dp"
+        android:src="@drawable/bg_default"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,7 +103,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/textView31"
+            android:id="@+id/txt_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

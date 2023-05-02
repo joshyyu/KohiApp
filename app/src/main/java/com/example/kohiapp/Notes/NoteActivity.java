@@ -10,9 +10,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.kohiapp.Gacha.WallpaperModel;
+import com.example.kohiapp.LoadData;
 import com.example.kohiapp.MainActivity;
+import com.example.kohiapp.R;
 import com.example.kohiapp.databinding.ActivityNoteBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,8 +32,10 @@ import java.util.List;
 
 public class NoteActivity extends AppCompatActivity {
     ActivityNoteBinding binding;
+    public int currentWallpaper;
     private NoteAdapter noteAdapter;
     private List<NotesModel> notesModelList;
+    private FirebaseFirestore db;
 
 
     @Override
@@ -37,6 +43,7 @@ public class NoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityNoteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        db = FirebaseFirestore.getInstance();
 
         notesModelList=new ArrayList<>();
 
@@ -103,7 +110,12 @@ public class NoteActivity extends AppCompatActivity {
     }
 
     private void getDataData() {
-        FirebaseFirestore.getInstance().collection("notes")
+        ConstraintLayout yConstraintLayout = findViewById(R.id.notes_activity);
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String userID = firebaseAuth.getUid();
+
+
+        db.collection("notes")
                 .whereEqualTo("uid",FirebaseAuth.getInstance().getUid())
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -118,6 +130,7 @@ public class NoteActivity extends AppCompatActivity {
                         }
 
                     }
+
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -125,6 +138,21 @@ public class NoteActivity extends AppCompatActivity {
                         Toast.makeText(NoteActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+        db.collection("users_wallpaper_data").document(userID)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            WallpaperModel wallpaperModel = documentSnapshot.toObject(WallpaperModel.class);
+                            currentWallpaper = wallpaperModel.getCurrentWallpaper();
+
+                            LoadData wallpaperManager = new LoadData(yConstraintLayout, currentWallpaper);
+                            wallpaperManager.loadWallpaperData();
+                        }
+                    }
+                });
+
 
     }
 }

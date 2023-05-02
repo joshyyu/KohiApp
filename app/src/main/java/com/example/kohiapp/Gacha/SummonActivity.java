@@ -30,6 +30,7 @@ import com.example.kohiapp.R;
 import com.example.kohiapp.StudyTimer.UserModel;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -80,6 +81,21 @@ public class SummonActivity extends AppCompatActivity {
     private void loadData() {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         String userID = firebaseAuth.getUid();
+        TextView name = findViewById(R.id.username_txt);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        // Set the user's full name if available, or UID if not
+        if (user != null) {
+            if (user.isAnonymous()) {
+                name.setText(user.getUid());
+            } else {
+                if (user.getDisplayName() != null) {
+                    name.setText(user.getDisplayName());
+                } else {
+                    name.setText(user.getEmail());
+                }
+            }
+        }
 
         db.collection("users_data").document(userID)
                 .get()

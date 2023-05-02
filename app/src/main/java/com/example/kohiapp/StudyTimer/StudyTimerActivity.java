@@ -12,12 +12,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.kohiapp.Gacha.WallpaperModel;
+import com.example.kohiapp.LoadData;
 import com.example.kohiapp.MainActivity;
 import com.example.kohiapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -36,6 +40,7 @@ public class StudyTimerActivity extends AppCompatActivity {
     private ImageView xGifStop;
     private GifImageView xGifStart;
     private ProgressBar progressBar;
+    public int currentWallpaper, currentGif;
     public int counter;
     private FirebaseFirestore db;
     private long elapsedTime;
@@ -85,6 +90,20 @@ public class StudyTimerActivity extends AppCompatActivity {
         });
         loadData();
         updateCountDownText();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        TextView name = findViewById(R.id.txt_username);
+
+        if (user != null) {
+            if (user.isAnonymous()) {
+                name.setText(user.getUid());
+            } else {
+                if (user.getDisplayName() != null) {
+                    name.setText(user.getDisplayName());
+                } else {
+                    name.setText(user.getEmail());
+                }
+            }
+        }
     }
 
     private void startTimer() {
@@ -245,6 +264,8 @@ public class StudyTimerActivity extends AppCompatActivity {
 
 
     private void loadData() {
+        ConstraintLayout yConstraintLayout = findViewById(R.id.activity_main);
+
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         String userID = firebaseAuth.getUid();
         db.collection("users_data").document(userID)
@@ -258,9 +279,68 @@ public class StudyTimerActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+        db.collection("users_wallpaper_data").document(userID)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            WallpaperModel wallpaperModel = documentSnapshot.toObject(WallpaperModel.class);
+                            currentWallpaper = wallpaperModel.getCurrentWallpaper();
+                            currentGif = wallpaperModel.getCurrentGif();
+                            LoadData wallpaperManager = new LoadData(yConstraintLayout, currentWallpaper);
+                            wallpaperManager.loadWallpaperData();
+
+                            if (currentGif == 1){
+                                GifImageView img6gif = findViewById(R.id.GifImageView_GifStart);
+                                ImageView imgbtn6gif = findViewById(R.id.ImageView_GifStop);
+                                img6gif.setImageResource(R.drawable.bg6_giflaptop);
+                                imgbtn6gif.setImageResource(R.drawable.bg6_giflaptop);
+                            }else if (currentGif == 2){
+                                GifImageView img6gif = findViewById(R.id.GifImageView_GifStart);
+                                ImageView imgbtn6gif = findViewById(R.id.ImageView_GifStop);
+                                img6gif.setImageResource(R.drawable.bg6_giflaptop);
+                                imgbtn6gif.setImageResource(R.drawable.bg6_giflaptop);
+                            }else if (currentGif == 3){
+                                GifImageView img6gif = findViewById(R.id.GifImageView_GifStart);
+                                ImageView imgbtn6gif = findViewById(R.id.ImageView_GifStop);
+                                img6gif.setImageResource(R.drawable.bg6_giflaptop);
+                                imgbtn6gif.setImageResource(R.drawable.bg6_giflaptop);
+                            }else if (currentGif == 4){
+                                GifImageView img6gif = findViewById(R.id.GifImageView_GifStart);
+                                ImageView imgbtn6gif = findViewById(R.id.ImageView_GifStop);
+                                img6gif.setImageResource(R.drawable.bg6_giflaptop);
+                                imgbtn6gif.setImageResource(R.drawable.bg6_giflaptop);
+                            }else if (currentGif == 5){
+                                GifImageView img6gif = findViewById(R.id.GifImageView_GifStart);
+                                ImageView imgbtn6gif = findViewById(R.id.ImageView_GifStop);
+                                img6gif.setImageResource(R.drawable.bg6_giflaptop);
+                                imgbtn6gif.setImageResource(R.drawable.bg6_giflaptop);
+                            }else if (currentGif == 6){
+                                GifImageView img6gif = findViewById(R.id.GifImageView_GifStart);
+                                ImageView imgbtn6gif = findViewById(R.id.ImageView_GifStop);
+                                img6gif.setImageResource(R.drawable.bg6_giflaptop);
+                                imgbtn6gif.setImageResource(R.drawable.bg6_giflaptop);
+                            }else if (currentGif == 7){
+                                GifImageView img6gif = findViewById(R.id.GifImageView_GifStart);
+                                ImageView imgbtn6gif = findViewById(R.id.ImageView_GifStop);
+                                img6gif.setImageResource(R.drawable.bg6_giflaptop);
+                                imgbtn6gif.setImageResource(R.drawable.bg6_giflaptop);
+                            }else if (currentGif == 8){
+                                GifImageView img6gif = findViewById(R.id.GifImageView_GifStart);
+                                ImageView imgbtn6gif = findViewById(R.id.ImageView_GifStop);
+                                img6gif.setImageResource(R.drawable.bg6_giflaptop);
+                                imgbtn6gif.setImageResource(R.drawable.bg6_giflaptop);
+                            }
+
+                            else {
+                                System.out.println("default");
+                            }
+                        }
+                    }
+                });
     }
-
-
 
     private void configureMenuButton() {
         ImageButton button_toMain = (ImageButton) findViewById(R.id.button_toMain);
