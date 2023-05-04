@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.kohiapp.Notes.NoteActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -42,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton = findViewById(R.id.login_button);
         mSignupButton = findViewById(R.id.signup);
         mGuestButton = findViewById(R.id.login_as_guest);
-        mSignuptxt = findViewById(R.id.signIn_txt);
+        mSignuptxt = findViewById(R.id.signUp_txt);
 
 
         mLoginButton.setOnClickListener(v -> loginUser());

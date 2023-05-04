@@ -46,6 +46,7 @@ public class SummonActivity extends AppCompatActivity {
             ds33, ds34, ds35, ds36,dg1, dg2, dg3, dg4, dg5, dg6, dg7, dg8;
     public int currentWallpaper,currentGif;
     private FirebaseFirestore db;
+    private MediaPlayer mediaPlayer;
     TextView zreward_text, zcounter,zsummon_text;
     ImageView zsummon_png;
 
@@ -195,83 +196,94 @@ public class SummonActivity extends AppCompatActivity {
         zsummon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println(currentWallpaper);
-                if (counter >= 1) {
+                try {
+                    if (counter >= 1) {
 
-                    counter--;
-                    zcounter.setText(String.valueOf(counter));
+                        counter--;
+                        zcounter.setText(String.valueOf(counter));
 
-                    // create a new dialog
-                    Dialog dialog = new Dialog(SummonActivity.this);
-                    dialog.setContentView(R.layout.gacha_layout);
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        // create a new dialog
+                        Dialog dialog = new Dialog(SummonActivity.this);
+                        dialog.setContentView(R.layout.gacha_layout);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                    // prevent the dialog from being dismissed when the user clicks outside of it
-                    dialog.setCanceledOnTouchOutside(false);
+                        // prevent the dialog from being dismissed when the user clicks outside of it
+                        dialog.setCanceledOnTouchOutside(false);
 
-                    //Randomise a sound too
+                        //Randomise a sound too
 
-                    int[] soundIds = {R.raw.gachafantasy, R.raw.gachabc, R.raw.gachapiano,R.raw.happy};
-                    int randomIndexSound = new Random().nextInt(soundIds.length);
-                    int selectedSoundId = soundIds[randomIndexSound];
+                        int[] soundIds = {R.raw.gachafantasy, R.raw.gachabc, R.raw.gachapiano, R.raw.happy};
+                        int randomIndexSound = new Random().nextInt(soundIds.length);
+                        int selectedSoundId = soundIds[randomIndexSound];
 
-                    // play the sound
-                    MediaPlayer mediaPlayer = MediaPlayer.create(SummonActivity.this, selectedSoundId);
-                    mediaPlayer.start();
+                        // play the sound
+                        mediaPlayer = MediaPlayer.create(SummonActivity.this, selectedSoundId);
+                        mediaPlayer.start();
 
-                    //Randomise the gacha gif to make it different every time
-                    int[] gifIds = {R.drawable.gacharoll, R.drawable.gacharoll2};
-                    int randomIndexGif = new Random().nextInt(gifIds.length);
-                    int selectedGifId = gifIds[randomIndexGif];
+                        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                            @Override
+                            public void onCompletion(MediaPlayer mp) {
+                                mediaPlayer.release();
+                            }
+                        });
 
-                    // load the animation GIF into the GifImageView in the dialog
-                    GifImageView animationView = dialog.findViewById(R.id.animation_view);
-                    Glide.with(SummonActivity.this).asGif().load(selectedGifId).listener(new RequestListener<GifDrawable>() {
-                        private boolean hasPlayedOnce = false;
+                        //Randomise the gacha gif to make it different every time
+                        int[] gifIds = {R.drawable.gacharoll, R.drawable.gacharoll2};
+                        int randomIndexGif = new Random().nextInt(gifIds.length);
+                        int selectedGifId = gifIds[randomIndexGif];
 
-                        @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
-                            return false;
-                        }
+                        // load the animation GIF into the GifImageView in the dialog
+                        GifImageView animationView = dialog.findViewById(R.id.animation_view);
+                        Glide.with(SummonActivity.this).asGif().load(selectedGifId).listener(new RequestListener<GifDrawable>() {
+                            private boolean hasPlayedOnce = false;
 
-                        //using glide to set the gif to play only once
-                        @Override
-                        public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
-                            resource.setLoopCount(1); // set repeat count to 1
-                            resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
-                                @Override
-                                public void onAnimationEnd(Drawable drawable) {
-                                    super.onAnimationEnd(drawable);
-                                    if (!hasPlayedOnce) {
-                                        hasPlayedOnce = true;
-                                        // dismiss the dialog after a delay
-                                        new Handler().postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                dialog.dismiss();
-                                                reward();
-                                            }
-                                        }, 5);
-                                    } else {
-                                        dialog.dismiss();
-                                        reward();
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                                return false;
+                            }
+
+                            //using glide to set the gif to play only once
+                            @Override
+                            public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                                resource.setLoopCount(1); // set repeat count to 1
+                                resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                                    @Override
+                                    public void onAnimationEnd(Drawable drawable) {
+                                        super.onAnimationEnd(drawable);
+                                        if (!hasPlayedOnce) {
+                                            hasPlayedOnce = true;
+                                            // dismiss the dialog after a delay
+                                            new Handler().postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    dialog.dismiss();
+                                                    reward();
+                                                }
+                                            }, 5);
+                                        } else {
+                                            dialog.dismiss();
+                                            reward();
+                                        }
                                     }
-                                }
-                            });
-                            return false;
-                        }
-                    }).into(animationView);
+                                });
+                                return false;
+                            }
+                        }).into(animationView);
 
-                    // show the dialog
-                    dialog.show();
+                        // show the dialog
+                        dialog.show();
 
 
+                    } else {
+                        zreward_text.setText("No Points ):");
+                    }
+
+                } catch (Exception e) {
+                    // handle the exception here
+                    e.printStackTrace();
                 }
-                else {
-                    zreward_text.setText("No Points ):");
-                }
-
             }
+
         });
 
     }
