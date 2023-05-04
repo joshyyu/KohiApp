@@ -354,7 +354,7 @@
                             android:id="@+id/dsDefault"
                             android:layout_width="69dp"
                             android:layout_height="49dp"
-                            android:background="@color/main"
+                            android:background="@drawable/rectanglefill"
                             android:contentDescription="@string/attachment_summary_off"
                             android:scaleType="fitXY"
                             android:src="@drawable/border" />

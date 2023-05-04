@@ -114,8 +114,7 @@ public class Gacha {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        // Print a message to the console when the reward is saved
-                        System.out.println("Reward " + rewardName + " saved to Firestore.");
+//                        System.out.println("Reward " + rewardName + " saved to Firestore.");
                     }
                 });
     }

@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText mEmailField, mPasswordField;
     private Button mLoginButton;
-    private TextView mSignupButton,mGuestButton;
+    private TextView mSignupButton,mGuestButton,mSignuptxt;
 
 
     @Override
@@ -42,10 +42,17 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton = findViewById(R.id.login_button);
         mSignupButton = findViewById(R.id.signup);
         mGuestButton = findViewById(R.id.login_as_guest);
+        mSignuptxt = findViewById(R.id.signIn_txt);
+
 
         mLoginButton.setOnClickListener(v -> loginUser());
 
         mSignupButton.setOnClickListener(v -> {
+            // navigate to signup activity
+            startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
+        });
+
+        mSignuptxt.setOnClickListener(v -> {
             // navigate to signup activity
             startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
         });

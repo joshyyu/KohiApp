@@ -24,9 +24,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
     public int currentWallpaper;
-    public static long START_TIME_IN_MILLIS = 30 * 60 * 1000; // initialize to a default value
+    public static long START_TIME_IN_MILLIS ; // initialize to a default value
     private FirebaseFirestore db;
     private int counter;
+    public  static int pointreward;
     TextView zcounter;
 
 
@@ -37,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         TextView name = findViewById(R.id.username);
         db = FirebaseFirestore.getInstance();
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         zcounter = findViewById(R.id.coffeeAmmount);
 
         configureMenuButton();
@@ -96,21 +96,27 @@ public class MainActivity extends AppCompatActivity {
         ImageButton button_toDiary = findViewById(R.id.button_toDiary);
         ImageButton button_toSummon = findViewById(R.id.button_toSummon);
 
+        int[] buttonIds = {R.id.btn30min, R.id.btn1hour, R.id.btn90min, R.id.btn2hour, R.id.btn150min, R.id.btn3hour};
+        int[] buttonRewards = {1, 3, 7, 15, 31, 62};
+        int[] buttontime = {30, 60, 90, 120, 150, 180}; // set desired times in minutes
 
-        int[] buttonIds = {
-                R.id.btn30min, R.id.btn1hour, R.id.btn90min,
-                R.id.btn2hour, R.id.btn150min, R.id.btn3hour
-        };
-        long[] buttonTimes = {1, 60, 90, 120, 150, 180};
 
         for (int i = 0; i < buttonIds.length; i++) {
             ImageButton button_toTimer = findViewById(buttonIds[i]);
-            final long time = buttonTimes[i];
+
+            final int reward = buttonRewards[i];
+            final int time = buttontime[i];
 
             button_toTimer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    START_TIME_IN_MILLIS = time * 20 * 100;
+                    // Set the point reward based on the button clicked
+                    pointreward = reward;
+
+                    // Calculate the start time for the timer in milliseconds
+                    START_TIME_IN_MILLIS = (long) time * 60 * 1000;
+
+                    // Start the study timer activity
                     startActivity(new Intent(MainActivity.this, StudyTimerActivity.class));
                 }
             });

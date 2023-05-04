@@ -122,6 +122,30 @@ public class DesignActivity extends AppCompatActivity {
 
     private void configureMenuButton() {
         ImageButton back_btn = (ImageButton) findViewById(R.id.back_btn);
+        ConstraintLayout vConstraintLayout = findViewById(R.id.design_activity);
+
+        ImageButton btn_dselected = findViewById(R.id.dgselected);
+        ImageButton btn_dgDefault = findViewById(R.id.dgdefault);
+        ImageButton btn_dsDefault = findViewById(R.id.dsDefault);
+
+        btn_dgDefault.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btn_dselected.setBackgroundResource(R.drawable.bg_pngdefault);
+                currentGif = 0;
+                saveData(); // Save the updated currentWallpaper value to Firestore
+            }
+        });
+
+        btn_dsDefault.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentWallpaper = 0;
+                vConstraintLayout.setBackgroundResource(R.color.main);
+                saveData(); // Save the updated currentWallpaper value to Firestore
+            }
+        });
+
 
         //lestiner to when its clicked
         back_btn.setOnClickListener(new View.OnClickListener() {
@@ -133,6 +157,7 @@ public class DesignActivity extends AppCompatActivity {
                 finish();
             }
         });
+
     }
 
     private void wallpaper() {
@@ -184,8 +209,6 @@ public class DesignActivity extends AppCompatActivity {
         ImageButton btn_dg8 = findViewById(R.id.dg8);
 
         ImageButton btn_dgDefault = findViewById(R.id.dgselected);
-        ImageButton btn_dsDefault = findViewById(R.id.dgdefault);
-
         ImageButton btn_gselected = findViewById(R.id.dgselected);
 
         if (ds1 == true) {
@@ -1074,24 +1097,6 @@ public class DesignActivity extends AppCompatActivity {
                 }
             });
         }
-
-
-        btn_dgDefault.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    btn_gselected.setBackgroundResource(R.drawable.bg_pngdefault);
-                    currentGif = 0;
-                    saveData(); // Save the updated currentWallpaper value to Firestore
-                }
-            });
-
-        btn_dsDefault.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentGif = 0;
-                saveData(); // Save the updated currentWallpaper value to Firestore
-            }
-        });
 
         if (currentGif == 1) {
             btn_dgDefault.setBackgroundResource(R.drawable.bg1_pngbread);

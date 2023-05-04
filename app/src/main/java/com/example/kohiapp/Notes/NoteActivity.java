@@ -37,7 +37,6 @@ public class NoteActivity extends AppCompatActivity {
     private List<NotesModel> notesModelList;
     private FirebaseFirestore db;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

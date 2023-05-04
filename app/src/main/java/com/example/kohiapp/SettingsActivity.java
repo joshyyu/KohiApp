@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kohiapp.Notes.NoteActivity;
@@ -28,11 +29,25 @@ import java.util.List;
 
 public class SettingsActivity extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         configureMenuButton();
+
+        TextView currentUser = findViewById(R.id.current_user);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        // Set the user's full name if available, or UID if not
+        if (user != null) {
+            if (user.isAnonymous()) {
+                currentUser.setText("Guest");
+            } else {
+                    currentUser.setText("Registered");
+                }
+            }
     }
 
     private void configureMenuButton() {

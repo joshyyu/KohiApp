@@ -1,6 +1,11 @@
 package com.example.kohiapp.StudyTimer;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -14,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.kohiapp.Gacha.SummonActivity;
 import com.example.kohiapp.Gacha.WallpaperModel;
 import com.example.kohiapp.LoadData;
 import com.example.kohiapp.MainActivity;
@@ -41,7 +47,7 @@ public class StudyTimerActivity extends AppCompatActivity {
     private GifImageView xGifStart;
     private ProgressBar progressBar;
     public int currentWallpaper, currentGif;
-    public int counter;
+    public int counter, pointreward = MainActivity.pointreward;
     private FirebaseFirestore db;
     private long elapsedTime;
     private long startTime;
@@ -130,11 +136,49 @@ public class StudyTimerActivity extends AppCompatActivity {
                 xTextViewCountDown.setText("Finished!");
                 xGifStop.setVisibility(View.VISIBLE);
                 xGifStart.setVisibility(View.INVISIBLE);
-                counter = counter + 20;
+                counter = counter + pointreward;
                 updateCounterSet();
                 elapsedTime = MainActivity.START_TIME_IN_MILLIS;
                 saveData();
 
+
+                // create a new dialog
+                Dialog dialog = new Dialog(StudyTimerActivity.this);
+                dialog.setContentView(R.layout.finshed_layout);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                // prevent the dialog from being dismissed when the user clicks outside of it
+                dialog.setCanceledOnTouchOutside(false);
+
+                // create a MediaPlayer object and load the sound file
+
+                MediaPlayer mediaPlayer = MediaPlayer.create(StudyTimerActivity.this, R.raw.finshed);
+
+                // set a listener to play the sound when the dialog is shown
+                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialogInterface) {
+                        mediaPlayer.setLooping(true);
+                        mediaPlayer.start();
+                    }
+                });
+
+                ImageButton finshbtn = dialog.findViewById(R.id.btn_main_done);
+
+                finshbtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                        mediaPlayer.stop();
+                        mediaPlayer.release();
+                        finish();
+                    }
+                });
+
+
+
+                // show the dialog
+                dialog.show();
             }
         }.start();
 
@@ -219,10 +263,10 @@ public class StudyTimerActivity extends AppCompatActivity {
 
     private void saveData() {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Saving");
-        progressDialog.setMessage("your data");
-        progressDialog.show();
+//        ProgressDialog progressDialog = new ProgressDialog(this);
+//        progressDialog.setTitle("Saving");
+//        progressDialog.setMessage("your data");
+//        progressDialog.show();
         String userID = firebaseAuth.getUid();
 
         UserModel userCounter = new UserModel(counter, userID);
@@ -232,15 +276,15 @@ public class StudyTimerActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(getApplicationContext(), "Data saved successfully!", Toast.LENGTH_SHORT).show();
-                        progressDialog.cancel();
+//                        Toast.makeText(getApplicationContext(), "Data saved successfully!", Toast.LENGTH_SHORT).show();
+//                        progressDialog.cancel();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        progressDialog.cancel();
+//                        Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+//                        progressDialog.cancel();
                     }
                 });
 
@@ -248,15 +292,15 @@ public class StudyTimerActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(getApplicationContext(), "Data saved successfully!", Toast.LENGTH_SHORT).show();
-                        progressDialog.cancel();
+//                        Toast.makeText(getApplicationContext(), "Data saved successfully!", Toast.LENGTH_SHORT).show();
+//                        progressDialog.cancel();
                     }
-                })
+    })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        progressDialog.cancel();
+//                        Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+//                        progressDialog.cancel();
                     }
                 });
 
@@ -293,45 +337,45 @@ public class StudyTimerActivity extends AppCompatActivity {
                             wallpaperManager.loadWallpaperData();
 
                             if (currentGif == 1){
-                                GifImageView img6gif = findViewById(R.id.GifImageView_GifStart);
-                                ImageView imgbtn6gif = findViewById(R.id.ImageView_GifStop);
-                                img6gif.setImageResource(R.drawable.bg6_giflaptop);
-                                imgbtn6gif.setImageResource(R.drawable.bg6_giflaptop);
+                                GifImageView imggif = findViewById(R.id.GifImageView_GifStart);
+                                ImageView imgbtngif = findViewById(R.id.ImageView_GifStop);
+                                imggif.setImageResource(R.drawable.bg1_gifbread);
+                                imgbtngif.setImageResource(R.drawable.bg1_pngbread);
                             }else if (currentGif == 2){
-                                GifImageView img6gif = findViewById(R.id.GifImageView_GifStart);
-                                ImageView imgbtn6gif = findViewById(R.id.ImageView_GifStop);
-                                img6gif.setImageResource(R.drawable.bg6_giflaptop);
-                                imgbtn6gif.setImageResource(R.drawable.bg6_giflaptop);
+                                GifImageView imggif = findViewById(R.id.GifImageView_GifStart);
+                                ImageView imgbtngif = findViewById(R.id.ImageView_GifStop);
+                                imggif.setImageResource(R.drawable.bg2_gifcup);
+                                imgbtngif.setImageResource(R.drawable.bg2_pngcup);
                             }else if (currentGif == 3){
-                                GifImageView img6gif = findViewById(R.id.GifImageView_GifStart);
-                                ImageView imgbtn6gif = findViewById(R.id.ImageView_GifStop);
-                                img6gif.setImageResource(R.drawable.bg6_giflaptop);
-                                imgbtn6gif.setImageResource(R.drawable.bg6_giflaptop);
+                                GifImageView imggif = findViewById(R.id.GifImageView_GifStart);
+                                ImageView imgbtngif = findViewById(R.id.ImageView_GifStop);
+                                imggif.setImageResource(R.drawable.bg3_gifeat);
+                                imgbtngif.setImageResource(R.drawable.bg3_pngeat);
                             }else if (currentGif == 4){
-                                GifImageView img6gif = findViewById(R.id.GifImageView_GifStart);
-                                ImageView imgbtn6gif = findViewById(R.id.ImageView_GifStop);
-                                img6gif.setImageResource(R.drawable.bg6_giflaptop);
-                                imgbtn6gif.setImageResource(R.drawable.bg6_giflaptop);
+                                GifImageView imggif = findViewById(R.id.GifImageView_GifStart);
+                                ImageView imgbtngif = findViewById(R.id.ImageView_GifStop);
+                                imggif.setImageResource(R.drawable.bg4_gifdance);
+                                imgbtngif.setImageResource(R.drawable.bg4_pngdance);
                             }else if (currentGif == 5){
-                                GifImageView img6gif = findViewById(R.id.GifImageView_GifStart);
-                                ImageView imgbtn6gif = findViewById(R.id.ImageView_GifStop);
-                                img6gif.setImageResource(R.drawable.bg6_giflaptop);
-                                imgbtn6gif.setImageResource(R.drawable.bg6_giflaptop);
+                                GifImageView imggif = findViewById(R.id.GifImageView_GifStart);
+                                ImageView imgbtngif = findViewById(R.id.ImageView_GifStop);
+                                imggif.setImageResource(R.drawable.bg5_gifwork);
+                                imgbtngif.setImageResource(R.drawable.bg5_pngwork);
                             }else if (currentGif == 6){
-                                GifImageView img6gif = findViewById(R.id.GifImageView_GifStart);
-                                ImageView imgbtn6gif = findViewById(R.id.ImageView_GifStop);
-                                img6gif.setImageResource(R.drawable.bg6_giflaptop);
-                                imgbtn6gif.setImageResource(R.drawable.bg6_giflaptop);
+                                GifImageView imggif = findViewById(R.id.GifImageView_GifStart);
+                                ImageView imgbtngif = findViewById(R.id.ImageView_GifStop);
+                                imggif.setImageResource(R.drawable.bg6_giflaptop);
+                                imgbtngif.setImageResource(R.drawable.bg6_giflaptop);
                             }else if (currentGif == 7){
-                                GifImageView img6gif = findViewById(R.id.GifImageView_GifStart);
-                                ImageView imgbtn6gif = findViewById(R.id.ImageView_GifStop);
-                                img6gif.setImageResource(R.drawable.bg6_giflaptop);
-                                imgbtn6gif.setImageResource(R.drawable.bg6_giflaptop);
+                                GifImageView imggif = findViewById(R.id.GifImageView_GifStart);
+                                ImageView imgbtngif = findViewById(R.id.ImageView_GifStop);
+                                imggif.setImageResource(R.drawable.bg7_gifpopcorn);
+                                imgbtngif.setImageResource(R.drawable.bg7_pngpopcorn);
                             }else if (currentGif == 8){
-                                GifImageView img6gif = findViewById(R.id.GifImageView_GifStart);
-                                ImageView imgbtn6gif = findViewById(R.id.ImageView_GifStop);
-                                img6gif.setImageResource(R.drawable.bg6_giflaptop);
-                                imgbtn6gif.setImageResource(R.drawable.bg6_giflaptop);
+                                GifImageView imggif = findViewById(R.id.GifImageView_GifStart);
+                                ImageView imgbtngif = findViewById(R.id.ImageView_GifStop);
+                                imggif.setImageResource(R.drawable.bg8_gifslap);
+                                imgbtngif.setImageResource(R.drawable.bg8_pngslap);
                             }
 
                             else {

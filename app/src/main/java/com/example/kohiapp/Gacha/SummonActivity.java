@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -21,7 +22,6 @@ import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat;
 
 import com.bumptech.glide.Glide;
@@ -34,6 +34,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Random;
+
 import pl.droidsonroids.gif.GifImageView;
 
 public class SummonActivity extends AppCompatActivity {
@@ -45,6 +47,7 @@ public class SummonActivity extends AppCompatActivity {
     public int currentWallpaper,currentGif;
     private FirebaseFirestore db;
     TextView zreward_text, zcounter,zsummon_text;
+    ImageView zsummon_png;
 
     private Gacha gacha;
 
@@ -56,7 +59,13 @@ public class SummonActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         zcounter = findViewById(R.id.counter_display_text);
+        zreward_text = findViewById(R.id.reward_text);
+        zsummon_text = findViewById(R.id.txt_summon);
+        zsummon_png = findViewById(R.id.png_reward);
 
+
+
+        ImageButton zsummon = (ImageButton) findViewById(R.id.btn_summon);
 
         String userId = firebaseAuth.getUid();
 
@@ -182,10 +191,6 @@ public class SummonActivity extends AppCompatActivity {
             }
         });
 
-        zreward_text = findViewById(R.id.reward_text);
-        zsummon_text = findViewById(R.id.txt_summon);
-
-
         ImageButton zsummon = (ImageButton) findViewById(R.id.btn_summon);
         zsummon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,13 +209,24 @@ public class SummonActivity extends AppCompatActivity {
                     // prevent the dialog from being dismissed when the user clicks outside of it
                     dialog.setCanceledOnTouchOutside(false);
 
+                    //Randomise a sound too
+
+                    int[] soundIds = {R.raw.gachafantasy, R.raw.gachabc, R.raw.gachapiano,R.raw.happy};
+                    int randomIndexSound = new Random().nextInt(soundIds.length);
+                    int selectedSoundId = soundIds[randomIndexSound];
+
                     // play the sound
-                    MediaPlayer mediaPlayer = MediaPlayer.create(SummonActivity.this, R.raw.gachafantasy);
+                    MediaPlayer mediaPlayer = MediaPlayer.create(SummonActivity.this, selectedSoundId);
                     mediaPlayer.start();
+
+                    //Randomise the gacha gif to make it different every time
+                    int[] gifIds = {R.drawable.gacharoll, R.drawable.gacharoll2};
+                    int randomIndexGif = new Random().nextInt(gifIds.length);
+                    int selectedGifId = gifIds[randomIndexGif];
 
                     // load the animation GIF into the GifImageView in the dialog
                     GifImageView animationView = dialog.findViewById(R.id.animation_view);
-                    Glide.with(SummonActivity.this).asGif().load(R.drawable.gacharoll).listener(new RequestListener<GifDrawable>() {
+                    Glide.with(SummonActivity.this).asGif().load(selectedGifId).listener(new RequestListener<GifDrawable>() {
                         private boolean hasPlayedOnce = false;
 
                         @Override
@@ -233,10 +249,12 @@ public class SummonActivity extends AppCompatActivity {
                                             @Override
                                             public void run() {
                                                 dialog.dismiss();
+                                                reward();
                                             }
-                                        }, 1000);
+                                        }, 5);
                                     } else {
                                         dialog.dismiss();
+                                        reward();
                                     }
                                 }
                             });
@@ -247,154 +265,7 @@ public class SummonActivity extends AppCompatActivity {
                     // show the dialog
                     dialog.show();
 
-                    int randomNumber = (int) (Math.random() * 10) + 1;
-                    if (randomNumber <= 10) {
 
-                        gacha.play();
-                        String rewardGift = gacha.getRewardGift();
-
-                        if (rewardGift.equals("ds1")) {
-                                ds1 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds2")) {
-                                ds2 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds3")) {
-                                ds3 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds4")) {
-                                ds4 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds5")) {
-                                ds5 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds6")) {
-                                ds6 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds7")) {
-                                ds7 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds8")) {
-                                ds8 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds9")) {
-                                ds9 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds10")) {
-                                ds10 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds11")) {
-                                ds11 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds12")) {
-                                ds12 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds13")) {
-                                ds13 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds14")) {
-                                ds14 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds15")) {
-                                ds15 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds16")) {
-                                ds16 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds17")) {
-                                ds17 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds18")) {
-                                ds18 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds19")) {
-                                ds19 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds20")) {
-                                ds20 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds21")) {
-                                ds21 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds22")) {
-                                ds22 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds23")) {
-                                ds23 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds24")) {
-                                ds24 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds25")) {
-                                ds25 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds26")) {
-                                ds26 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds27")) {
-                                ds27 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds28")) {
-                                ds28 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds29")) {
-                                ds29 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds30")) {
-                                ds30 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds31")) {
-                                ds31 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds32")) {
-                                ds32 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds33")) {
-                                ds33 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds34")) {
-                                ds34 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds35")) {
-                                ds35 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("ds36")) {
-                                ds36 = true;
-                                zreward_text.setText(rewardGift);
-                            }else if (rewardGift.equals("dg1")) {
-                                dg1 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("dg2")) {
-                                dg2 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("dg3")) {
-                                dg3 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("dg4")) {
-                                dg4 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("dg5")) {
-                                dg5 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("dg6")) {
-                                dg6 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("dg7")) {
-                                dg7 = true;
-                                zreward_text.setText(rewardGift);
-                            } else if (rewardGift.equals("dg8")) {
-                                ds8 = true;
-                                zreward_text.setText(rewardGift);
-                            }
-                            else {
-                                zreward_text.setText("No More rewards");
-                                zsummon.setVisibility(View.GONE);
-                                zsummon_text.setVisibility(View.GONE);
-                            }
-                            System.out.println(rewardGift);
-                    }else {
-                        zreward_text.setText("Try Again ):");
-                    } saveData();
                 }
                 else {
                     zreward_text.setText("No Points ):");
@@ -402,6 +273,206 @@ public class SummonActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    public void reward(){
+
+        ImageButton zsummon = (ImageButton) findViewById(R.id.btn_summon);
+
+        int randomNumber = (int) (Math.random() * 10) + 1;
+        if (randomNumber <= 4) {
+
+            gacha.play();
+            String rewardGift = gacha.getRewardGift();
+
+            if (rewardGift.equals("ds1")) {
+                ds1 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign1_beige);
+            } else if (rewardGift.equals("ds2")) {
+                ds2 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign2_heart);
+            } else if (rewardGift.equals("ds3")) {
+                ds3 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign3_grass);
+            } else if (rewardGift.equals("ds4")) {
+                ds4 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign4_picnic);
+            } else if (rewardGift.equals("ds5")) {
+                ds5 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign5_flowerbloom);
+            } else if (rewardGift.equals("ds6")) {
+                ds6 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign6_pastelpink);
+            } else if (rewardGift.equals("ds7")) {
+                ds7 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign7_picnicbw);
+            } else if (rewardGift.equals("ds8")) {
+                ds8 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign8_picnicpink);
+            } else if (rewardGift.equals("ds9")) {
+                ds9 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign9_flowerverticalbloom);
+            } else if (rewardGift.equals("ds10")) {
+                ds10 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign10_bear);
+            } else if (rewardGift.equals("ds11")) {
+                ds11 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign11_picniccookie);
+            } else if (rewardGift.equals("ds12")) {
+                ds12 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign12_picnicheart);
+            } else if (rewardGift.equals("ds13")) {
+                ds13 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign13_picnicbrown);
+            } else if (rewardGift.equals("ds14")) {
+                ds14 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign14_picnicclothes);
+            } else if (rewardGift.equals("ds15")) {
+                ds15 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign15_pastelspill);
+            } else if (rewardGift.equals("ds16")) {
+                ds16 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign16_leafbrown);
+            } else if (rewardGift.equals("ds17")) {
+                ds17 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign17_pasteldot);
+            } else if (rewardGift.equals("ds18")) {
+                ds18 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign18_spiralpicnic);
+            } else if (rewardGift.equals("ds19")) {
+                ds19 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign19_pastelflower);
+            } else if (rewardGift.equals("ds20")) {
+                ds20 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign20_pastelcoffeespill);
+            } else if (rewardGift.equals("ds21")) {
+                ds21 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign21_bear);
+            } else if (rewardGift.equals("ds22")) {
+                ds22 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign22_pastelcloud);
+            } else if (rewardGift.equals("ds23")) {
+                ds23 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign23_pastelspillborder);
+            } else if (rewardGift.equals("ds24")) {
+                ds24 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign24_pastelspillmix);
+            } else if (rewardGift.equals("ds25")) {
+                ds25 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign25_pastellayers);
+            } else if (rewardGift.equals("ds26")) {
+                ds26 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign26_pastelmixdots);
+            } else if (rewardGift.equals("ds27")) {
+                ds27 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign27_coffeepastelspillwave);
+            } else if (rewardGift.equals("ds28")) {
+                ds28 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign28_pastelflowers);
+            } else if (rewardGift.equals("ds29")) {
+                ds29 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign29pastelcoffeespillsides);
+            } else if (rewardGift.equals("ds30")) {
+                ds30 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign30_picnicpastels);
+            } else if (rewardGift.equals("ds31")) {
+                ds31 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign31_pasteldot);
+            } else if (rewardGift.equals("ds32")) {
+                ds32 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign32_pastelbrownlinebg);
+            } else if (rewardGift.equals("ds33")) {
+                ds33 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign33_coffeemix);
+            } else if (rewardGift.equals("ds34")) {
+                ds34 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign34_darkpastelmix);
+            } else if (rewardGift.equals("ds35")) {
+                ds35 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign35_pastelverticalspill);
+            } else if (rewardGift.equals("ds36")) {
+                ds36 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bgdesign36_flowerdandolions);
+            }else if (rewardGift.equals("dg1")) {
+                dg1 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bg1_pngbread);
+            } else if (rewardGift.equals("dg2")) {
+                dg2 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bg2_pngcup);
+            } else if (rewardGift.equals("dg3")) {
+                dg3 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bg3_pngeat);
+            } else if (rewardGift.equals("dg4")) {
+                dg4 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bg4_pngdance);
+            } else if (rewardGift.equals("dg5")) {
+                dg5 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bg5_pngwork);
+            } else if (rewardGift.equals("dg6")) {
+                dg6 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bg6_pnglaptop);
+            } else if (rewardGift.equals("dg7")) {
+                dg7 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bg7_pngpopcorn);
+            } else if (rewardGift.equals("dg8")) {
+                ds8 = true;
+                zreward_text.setText("You Won! Check the design page ");
+                zsummon_png.setImageResource(R.drawable.bg8_pngslap);
+            }
+            else {
+                zreward_text.setText("No More rewards");
+                zsummon.setVisibility(View.GONE);
+                zsummon_text.setVisibility(View.GONE);
+                zsummon_png.setVisibility(View.GONE);
+            }
+            System.out.println(rewardGift);
+        }else {
+            zreward_text.setText("Try Again ):");
+        } saveData();
 
     }
 
