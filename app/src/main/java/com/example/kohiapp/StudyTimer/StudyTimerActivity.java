@@ -3,6 +3,7 @@ package com.example.kohiapp.StudyTimer;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
@@ -171,6 +172,7 @@ public class StudyTimerActivity extends AppCompatActivity {
                         dialog.dismiss();
                         mediaPlayer.stop();
                         mediaPlayer.release();
+                        startActivity(new Intent(StudyTimerActivity.this, MainActivity.class));
                         finish();
                     }
                 });

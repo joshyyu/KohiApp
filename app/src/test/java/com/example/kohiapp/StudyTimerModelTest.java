@@ -30,9 +30,10 @@ public class StudyTimerModelTest {
     public void setElapsedTime() {
         StudyTimerModel studyTimerModel = new StudyTimerModel();
 
-        long elapsedTime = 5000;
+        long elapsedTime = 200;
         studyTimerModel.setElapsedTime(elapsedTime);
 
+        System.out.println(elapsedTime);
         assertEquals(elapsedTime, studyTimerModel.getElapsedTime());
     }
 }
