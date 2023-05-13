@@ -8,7 +8,6 @@
     android:background="@drawable/gachabg"
     tools:context=".Gacha.SummonActivity">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout9"
         android:layout_width="match_parent"
