@@ -166,6 +166,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
   }
+}
+
 
 //    public void saveData() {
 //        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
@@ -178,4 +180,3 @@ public class MainActivity extends AppCompatActivity {
 //        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
 //        currentWallpaper = sharedPreferences.getInt("currentWallpaper", 0);
 //    }
-}

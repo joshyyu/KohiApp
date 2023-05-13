@@ -105,8 +105,10 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
+}
 
-    //not used anymore
+
+//not used anymore
 //    private void continueAsGuest() {
 //        // Anonymous login
 //        ProgressDialog progressDialog = new ProgressDialog(this);
@@ -135,10 +137,6 @@ public class LoginActivity extends AppCompatActivity {
 //            Toast.makeText(LoginActivity.this, "Already logged in", Toast.LENGTH_SHORT).show();
 //        }
 //    }
-
-}
-
-
 
 //
 //    @Override
