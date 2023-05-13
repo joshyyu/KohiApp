@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.KohiApp">
+        <item name="android:fontFamily">@font/poltawskinowy_regular</item>
+        <item name="android:textColor">@color/color_dark_reddish_brown</item>
+    </style>
+</resources>

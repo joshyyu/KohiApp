@@ -25,9 +25,38 @@
 
     <color name="color_dark_olive_green">#514F16</color>
     <color name="color_muted_yellow_green">#AFAD55</color>
+
     <color name="color_warm_white">#F5E8D9</color>
+    <color name="cool_grey">#8E9AAD</color>
+    <color name="dusty_blue">#5B7C8D</color>
+    <color name="peach">#F4A582</color>
+
+
     <color name="color_warm_peach">#EADAB7</color>
+    <color name="dark_green">#3A4F41</color>
+    <color name="burnt_orange">#A83A2F</color>
+    <color name="light_blue">#8EB7D2</color>
+
+    <color name="light_brown">#D1AC99</color>
+    <color name="olive_green">#556B2F</color>
+    <color name="mauve">#B19CD9</color>
+    <color name="mustard_yellow">#FFDB58</color>
+
     <color name="color_muted_brownish_red">#8D5F48</color>
+    <color name="light_teal">#99E6B3</color>
+    <color name="lavender">#967BB6</color>
+    <color name="dark_salmon">#E9967A</color>
+
     <color name="color_dark_reddish_brown">#502C18</color>
+    <color name="light_grey">#D3D3D3</color>
+    <color name="coral">#FF7F50</color>
+    <color name="aqua">#00FFFF</color>
+
+    <color name="primary_brown">#E1C9A9</color>
+    <color name="pink">#FFC0CB</color>
+    <color name="dark_blue">#00008B</color>
+    <color name="teal">#008080</color>
+
+
 
 </resources>

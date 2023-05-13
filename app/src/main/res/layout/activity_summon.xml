@@ -1,131 +1,307 @@
 <?xml version="1.0" encoding="utf-8"?>
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/summon_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/brownlinebg"
-    tools:context=".SummonActivity">
+    android:background="@drawable/gachabg"
+    tools:context=".Gacha.SummonActivity">
 
-    <Button
-        android:id="@+id/button_toMain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
-        android:text="Summon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/button_toSummonContent"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout9"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Summon Content Test"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.434" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/textView_SummonContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:text="  "
-        android:textColor="@color/black"
-        android:textSize="28sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_toSummonContent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ImageView
+            android:id="@+id/imageView28"
+            android:layout_width="324dp"
+            android:layout_height="84dp"
+            android:contentDescription="null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/topnav" />
 
-    <TextView
-        android:id="@+id/counter_display_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView_SummonContent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.706" />
+        <TextView
+            android:id="@+id/textView29"
+            android:layout_width="139dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:text="Good Luck on your summons!"
+            app:layout_constraintStart_toStartOf="@+id/imageView28"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
-        android:layout_width="258dp"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.694">
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/username_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:maxLength="11"
+            android:text="Usernname"
+            app:layout_constraintStart_toStartOf="@+id/textView29"
+            app:layout_constraintTop_toBottomOf="@+id/textView29" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="152dp"
+            android:layout_height="82dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageView28"
+            app:layout_constraintTop_toTopOf="parent">
 
-                <Button
-                    android:id="@+id/bgMain"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_weight="1"
-                    android:text="Main"
-                    android:visibility="invisible"
-                    tools:visibility="visible" />
+            <TextView
+                android:id="@+id/textView34"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Coffee Ammount"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <Button
-                    android:id="@+id/bgWhite"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_weight="1"
-                    android:text="White"
-                    android:visibility="invisible"
-                    tools:visibility="visible" />
+            <ImageView
+                android:id="@+id/imageView29"
+                android:layout_width="37dp"
+                android:layout_height="37dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView34"
+                app:srcCompat="@drawable/coffee_bean" />
 
-            </LinearLayout>
+            <TextView
+                android:id="@+id/counter_display_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:maxLength="11"
+                android:text="0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/imageView29"
+                app:layout_constraintTop_toTopOf="@+id/imageView29" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:orientation="horizontal">
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <Button
-                    android:id="@+id/bgBlue"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_weight="1"
-                    android:text="Blue"
-                    android:visibility="invisible"
-                    tools:visibility="visible" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout9"
+        tools:layout_editor_absoluteX="-71dp">
 
-                <Button
-                    android:id="@+id/TempReset"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_weight="1"
-                    android:text="Reset" />
+        <ImageView
+            android:id="@+id/imageView37"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintEnd_toEndOf="@+id/imageView33"
+            app:layout_constraintStart_toEndOf="@+id/imageView38"
+            app:layout_constraintTop_toTopOf="@+id/imageView38"
+            app:srcCompat="@drawable/roundstyle" />
 
-            </LinearLayout>
+        <ImageView
+            android:id="@+id/imageView38"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/roundstyle" />
 
-        </LinearLayout>
-    </ScrollView>
+        <ImageView
+            android:id="@+id/imageView39"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintEnd_toStartOf="@+id/imageView38"
+            app:layout_constraintStart_toStartOf="@+id/imageView33"
+            app:layout_constraintTop_toTopOf="@+id/imageView38"
+            app:srcCompat="@drawable/roundstyle" />
 
+        <ImageView
+            android:id="@+id/imageView33"
+            android:layout_width="330dp"
+            android:layout_height="247dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/noteroundbuttonshadow" />
+
+        <TextView
+            android:id="@+id/reward_title"
+            android:layout_width="123dp"
+            android:layout_height="64dp"
+            android:autoSizeTextType="uniform"
+            android:gravity="center"
+            android:text="Reward"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/imageView33"
+            app:layout_constraintStart_toStartOf="@+id/imageView33"
+            app:layout_constraintTop_toTopOf="@+id/imageView33" />
+
+        <ImageButton
+            android:id="@+id/back_btn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:background="@null"
+            android:contentDescription="@string/attachment_summary_off"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toStartOf="@+id/reward_title"
+            app:layout_constraintHorizontal_bias="0.517"
+            app:layout_constraintStart_toStartOf="@+id/imageView33"
+            app:layout_constraintTop_toTopOf="@+id/imageView33"
+            app:srcCompat="@drawable/backmark" />
+
+        <TextView
+            android:id="@+id/textView40"
+            android:layout_width="268dp"
+            android:layout_height="56dp"
+            android:text="Unlock Rewards by Brewing Your Coffee Beans an d relaxing!"
+            app:layout_constraintEnd_toEndOf="@+id/imageView33"
+            app:layout_constraintStart_toStartOf="@+id/imageView33"
+            app:layout_constraintTop_toBottomOf="@+id/reward_title" />
+
+        <TextView
+            android:id="@+id/reward_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text=""
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView40" />
+
+        <ImageView
+            android:id="@+id/png_reward"
+            android:layout_width="76dp"
+            android:layout_height="57dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/bg_pngdefault"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView33"
+            app:layout_constraintEnd_toEndOf="@+id/imageView33"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="@+id/imageView33"
+            app:layout_constraintTop_toBottomOf="@+id/reward_text"
+            app:layout_constraintVertical_bias="0.82" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout8"
+        android:layout_width="match_parent"
+        android:layout_height="274dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
+
+        <ImageView
+            android:id="@+id/imageView27"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/roundstyle" />
+
+        <ImageView
+            android:id="@+id/imageView26"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintEnd_toStartOf="@+id/imageView27"
+            app:layout_constraintStart_toStartOf="@+id/imageView21"
+            app:layout_constraintTop_toTopOf="@+id/imageView27"
+            app:srcCompat="@drawable/roundstyle" />
+
+        <ImageView
+            android:id="@+id/imageView25"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintEnd_toEndOf="@+id/imageView21"
+            app:layout_constraintStart_toEndOf="@+id/imageView27"
+            app:layout_constraintTop_toTopOf="@+id/imageView27"
+            app:srcCompat="@drawable/roundstyle" />
+
+        <ImageView
+            android:id="@+id/imageView21"
+            android:layout_width="330dp"
+            android:layout_height="247dp"
+            android:layout_marginTop="28dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView27"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/noteroundbuttonshadow" />
+
+        <TextView
+            android:id="@+id/title_gacha"
+            android:layout_width="123dp"
+            android:layout_height="64dp"
+            android:autoSizeTextType="uniform"
+            android:gravity="center"
+            android:text="Gacha"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView21" />
+
+        <ImageButton
+            android:id="@+id/btn_summon"
+            android:layout_width="163dp"
+            android:layout_height="69dp"
+            android:layout_marginBottom="16dp"
+            android:background="@null"
+            android:contentDescription="@string/attachment_summary_off"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_gacha"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/roundbutton" />
+
+        <TextView
+            android:id="@+id/txt_summon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Brew"
+            android:textSize="32sp"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_summon"
+            app:layout_constraintEnd_toEndOf="@+id/btn_summon"
+            app:layout_constraintStart_toStartOf="@+id/btn_summon"
+            app:layout_constraintTop_toTopOf="@+id/btn_summon" />
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="244dp"
+            android:layout_height="wrap_content"
+            android:text="Use your points to unlock awsome rewards!"
+            app:layout_constraintEnd_toEndOf="@+id/imageView21"
+            app:layout_constraintStart_toStartOf="@+id/imageView21"
+            app:layout_constraintTop_toBottomOf="@+id/title_gacha" />
+
+        <TextView
+            android:id="@+id/textView36"
+            android:layout_width="244dp"
+            android:layout_height="wrap_content"
+            android:text="Recieve a new design by using your points"
+            app:layout_constraintEnd_toEndOf="@+id/textView21"
+            app:layout_constraintStart_toStartOf="@+id/textView21"
+            app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

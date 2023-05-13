@@ -2,169 +2,131 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/summon_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/pastelcoffeespill"
-    >
+    android:background="@drawable/bgdesign20_pastelcoffeespill"
+    tools:context=".Gacha.SummonActivity">
 
-    <ImageView
-        android:id="@+id/mainTab"
-        android:layout_width="344dp"
-        android:layout_height="84dp"
+    <Button
+        android:id="@+id/button_toMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:text="Summon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/title_gacha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Summon Content Test"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.434" />
+
+    <TextView
+        android:id="@+id/textView_SummonContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
         android:contentDescription="@string/attachment_summary_off"
-        android:rotationX="-190"
+        android:text="  "
+        android:textColor="@color/black"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@+id/title_gacha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/counter_display_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView_SummonContent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/roundrectangle" />
+        app:layout_constraintVertical_bias="0.706" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayoutTop"
-        android:layout_width="279dp"
-        android:layout_height="61dp"
-        app:layout_constraintBottom_toBottomOf="@+id/mainTab"
-        app:layout_constraintEnd_toEndOf="@+id/mainTab"
-        app:layout_constraintStart_toStartOf="@+id/mainTab"
-        app:layout_constraintTop_toTopOf="@+id/mainTab"
-        app:layout_constraintVertical_bias="0.0">
+    <ScrollView
+        android:layout_width="258dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.694">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/button_toDiary"
-                    android:layout_width="50dp"
+                <Button
+                    android:id="@+id/bgMain"
+                    android:layout_width="100dp"
                     android:layout_height="50dp"
+                    android:layout_marginStart="24dp"
                     android:layout_weight="1"
-                    android:background="@null"
-                    android:contentDescription="@string/attachment_summary_off"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/rectanglefill" />
+                    android:text="Main"
+                    android:visibility="invisible"
+                    tools:visibility="visible" />
 
-                <ImageView
-                    android:id="@+id/imageView8"
-                    android:layout_width="58dp"
-                    android:layout_height="46dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/coffeebreak" />
+                <Button
+                    android:id="@+id/bgWhite"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_weight="1"
+                    android:text="White"
+                    android:visibility="invisible"
+                    tools:visibility="visible" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="0.5"
+                android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/button_toSummon"
-                    android:layout_width="50dp"
+                <Button
+                    android:id="@+id/bgBlue"
+                    android:layout_width="100dp"
                     android:layout_height="50dp"
+                    android:layout_marginStart="24dp"
                     android:layout_weight="1"
-                    android:background="@null"
-                    android:contentDescription="@string/attachment_summary_off"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/rectanglefill" />
+                    android:text="Blue"
+                    android:visibility="invisible"
+                    tools:visibility="visible" />
 
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="58dp"
-                    android:layout_height="46dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/coffeebag" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <ImageButton
-                    android:id="@+id/button_toAnalytics"
-                    android:layout_width="50dp"
+                <Button
+                    android:id="@+id/TempReset"
+                    android:layout_width="100dp"
                     android:layout_height="50dp"
+                    android:layout_marginStart="24dp"
                     android:layout_weight="1"
-                    android:background="@null"
-                    android:contentDescription="@string/attachment_summary_off"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.52"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/rectanglefill" />
+                    android:text="Reset" />
 
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="58dp"
-                    android:layout_height="46dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.52"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/analytics" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
         </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
-    <LinearLayout
-        android:layout_width="274dp"
-        android:layout_height="26dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/mainTab"
-        app:layout_constraintEnd_toEndOf="@+id/mainTab"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintStart_toStartOf="@+id/mainTab"
-        app:layout_constraintTop_toTopOf="@+id/mainTab"
-        app:layout_constraintVertical_bias="1.0">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="Timer"
-            android:textAlignment="center" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="87dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Summon"
-            android:textAlignment="center" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Anlytics"
-            android:textAlignment="center" />
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
