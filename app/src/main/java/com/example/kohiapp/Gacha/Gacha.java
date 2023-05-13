@@ -136,7 +136,8 @@ public class Gacha {
         });
     }
 
-    public String getRewardGift() {
+    public String getRewardGift()
+    {
         return rewardGift;
     }
 }
