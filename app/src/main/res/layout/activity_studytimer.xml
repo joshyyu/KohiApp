@@ -262,8 +262,9 @@
 
             <TextView
                 android:id="@+id/textView_countdown"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="00:00"
                 android:textColor="#986F5A"
                 android:textSize="60dp"
@@ -372,5 +373,16 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/app_closedtxt"
+        android:layout_width="wrap_content"
+        android:layout_height="142dp"
+        android:layout_marginTop="4dp"
+        android:text="APP CLOSED"
+        android:textSize="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutTop" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

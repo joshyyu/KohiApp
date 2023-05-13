@@ -72,7 +72,7 @@ public class AnalyticsActivity extends AppCompatActivity {
 
             // Refresh chart with filtered data
             plotData();
-
+            plotLineChart();
         });
     }
 
@@ -124,6 +124,7 @@ public class AnalyticsActivity extends AppCompatActivity {
                         // Create dataset and set options
                         LineDataSet dataSet = new LineDataSet(entries, "User Productivity Data");
                         dataSet.setDrawIcons(false);
+
                         int[] colors = new int[] {
                                 ContextCompat.getColor(this, R.color.purple_500),
                                 ContextCompat.getColor(this, R.color.burnt_orange),
@@ -131,6 +132,7 @@ public class AnalyticsActivity extends AppCompatActivity {
                                 ContextCompat.getColor(this, R.color.olive_green)
                         };
                         dataSet.setColors(colors);
+                        dataSet.setLineWidth(3f);
 
                         // Create LineData object and set dataset
                         LineData lineData = new LineData(dataSet);
@@ -218,7 +220,6 @@ public class AnalyticsActivity extends AppCompatActivity {
                             double elapsedTime = document.getDouble("elapsedTime");
                             Timestamp timestamp = document.getTimestamp("timestamp");
                             double elapsedTimeMinutes = elapsedTime / 60000;
-
 
                             // Format timestamp to display as a date
                             SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy", Locale.US);

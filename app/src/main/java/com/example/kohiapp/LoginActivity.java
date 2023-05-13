@@ -106,34 +106,35 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    private void continueAsGuest() {
-        // Anonymous login
-        ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Logging in as Guest");
-        progressDialog.setMessage("in process");
-        progressDialog.show();
-
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
-        if (firebaseAuth.getCurrentUser() == null) {
-            firebaseAuth.signInAnonymously().addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                @Override
-                public void onSuccess(AuthResult authResult) {
-                    progressDialog.cancel();
-                    Toast.makeText(LoginActivity.this, "Logged in Anonymously", Toast.LENGTH_SHORT).show();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    progressDialog.cancel();
-                    Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        } else {
-            progressDialog.cancel();
-            Toast.makeText(LoginActivity.this, "Already logged in", Toast.LENGTH_SHORT).show();
-        }
-    }
+    //not used anymore
+//    private void continueAsGuest() {
+//        // Anonymous login
+//        ProgressDialog progressDialog = new ProgressDialog(this);
+//        progressDialog.setTitle("Logging in as Guest");
+//        progressDialog.setMessage("in process");
+//        progressDialog.show();
+//
+//        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+//
+//        if (firebaseAuth.getCurrentUser() == null) {
+//            firebaseAuth.signInAnonymously().addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+//                @Override
+//                public void onSuccess(AuthResult authResult) {
+//                    progressDialog.cancel();
+//                    Toast.makeText(LoginActivity.this, "Logged in Anonymously", Toast.LENGTH_SHORT).show();
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    progressDialog.cancel();
+//                    Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        } else {
+//            progressDialog.cancel();
+//            Toast.makeText(LoginActivity.this, "Already logged in", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
 }
 

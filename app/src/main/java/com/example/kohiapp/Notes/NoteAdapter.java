@@ -73,7 +73,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
 
     @Override
     public int getItemCount() {
-
         return notesModelList.size();
     }
 

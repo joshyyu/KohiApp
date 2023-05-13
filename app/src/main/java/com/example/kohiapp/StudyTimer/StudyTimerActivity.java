@@ -38,7 +38,7 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class StudyTimerActivity extends AppCompatActivity {
 
-    private TextView xTextViewCountDown, xCounterText,xButtonStartPauseText,xButtonResetText;
+    private TextView xTextViewCountDown, xCounterText,xButtonStartPauseText,xButtonResetText, xAppClosedText;
     private ImageButton xButtonStartPause, xButtonReset;
     private CountDownTimer xCountdownTimer;
     private boolean xTimerRunning;
@@ -59,6 +59,7 @@ public class StudyTimerActivity extends AppCompatActivity {
 
         configureMenuButton();
 
+        xAppClosedText = findViewById(R.id.app_closedtxt);
         xTextViewCountDown = findViewById(R.id.textView_countdown);
         xButtonStartPause = findViewById(R.id.button_Start_Pause);
         xButtonReset = findViewById(R.id.button_Reset);
@@ -76,6 +77,7 @@ public class StudyTimerActivity extends AppCompatActivity {
         xButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                xAppClosedText.setVisibility(View.INVISIBLE);
                 if (xTimerRunning) {
                     pauseTimer();
                     xGifStop.setVisibility(View.VISIBLE);
@@ -94,6 +96,7 @@ public class StudyTimerActivity extends AppCompatActivity {
                 resetTimer();
             }
         });
+        xAppClosedText.setVisibility(View.INVISIBLE);
         loadData();
         updateCountDownText();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -113,6 +116,7 @@ public class StudyTimerActivity extends AppCompatActivity {
     }
 
     private void startTimer() {
+        xAppClosedText.setVisibility(View.INVISIBLE);
         xCountdownTimer = new CountDownTimer(xTimeLeftInMillis, 10) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -140,8 +144,6 @@ public class StudyTimerActivity extends AppCompatActivity {
                 updateCounterSet();
                 elapsedTime = MainActivity.START_TIME_IN_MILLIS;
                 saveData();
-
-
                 // create a new dialog
                 Dialog dialog = new Dialog(StudyTimerActivity.this);
                 dialog.setContentView(R.layout.finshed_layout);
@@ -162,9 +164,7 @@ public class StudyTimerActivity extends AppCompatActivity {
                         mediaPlayer.start();
                     }
                 });
-
                 ImageButton finshbtn = dialog.findViewById(R.id.btn_main_done);
-
                 finshbtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -174,9 +174,6 @@ public class StudyTimerActivity extends AppCompatActivity {
                         finish();
                     }
                 });
-
-
-
                 // show the dialog
                 dialog.show();
             }
@@ -191,6 +188,7 @@ public class StudyTimerActivity extends AppCompatActivity {
 
 
     private void pauseTimer() {
+        xAppClosedText.setVisibility(View.INVISIBLE);
         xCountdownTimer.cancel();
         xTimerRunning = false;
         xButtonStartPauseText.setText("Start");
@@ -235,13 +233,18 @@ public class StudyTimerActivity extends AppCompatActivity {
         if (xTimerRunning) {
             xCountdownTimer.cancel();
             xTimerRunning = false;
-            xButtonStartPauseText.setText("APP CLOSED!");
+
+            xAppClosedText.setVisibility(View.VISIBLE);
             xButtonReset.setVisibility(View.VISIBLE);
             xButtonResetText.setVisibility(View.VISIBLE);
+            xButtonStartPauseText.setVisibility(View.INVISIBLE);
+            xButtonStartPause.setVisibility(View.INVISIBLE);
             xGifStop.setVisibility(View.VISIBLE);
             xGifStart.setVisibility(View.INVISIBLE);
         } else {
-            xTextViewCountDown.setText("APP CLOSED!");
+            xAppClosedText.setVisibility(View.VISIBLE);
+            xButtonStartPauseText.setVisibility(View.INVISIBLE);
+            xButtonStartPause.setVisibility(View.INVISIBLE);
         }
 
     }
@@ -268,10 +271,8 @@ public class StudyTimerActivity extends AppCompatActivity {
 //        progressDialog.setMessage("your data");
 //        progressDialog.show();
         String userID = firebaseAuth.getUid();
-
         UserModel userCounter = new UserModel(counter, userID);
         StudyTimerModel studyTimerData = new StudyTimerModel(userID, startTime, elapsedTime);
-
         db.collection("users_data").document(userID).set(userCounter)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -287,7 +288,6 @@ public class StudyTimerActivity extends AppCompatActivity {
 //                        progressDialog.cancel();
                     }
                 });
-
         db.collection("user_timer").add(studyTimerData)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
@@ -303,9 +303,7 @@ public class StudyTimerActivity extends AppCompatActivity {
 //                        progressDialog.cancel();
                     }
                 });
-
     }
-
 
     private void loadData() {
         ConstraintLayout yConstraintLayout = findViewById(R.id.activity_main);

@@ -55,7 +55,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String confirmPassword = confirmPasswordEditText.getText().toString();
 
                 if (TextUtils.isEmpty(fullName)) {
-                    fullNameEditText.setError("Full name is required.");
+                    fullNameEditText.setError("Full username is required.");
                     return;
                 }
 
@@ -125,9 +125,10 @@ public class SignUpActivity extends AppCompatActivity {
                             finish();
                         } else {
                             // If sign-up fails, display a message to the user.
-                            Toast.makeText(SignUpActivity.this, "Sign-up failed. Please try again.", Toast.LENGTH_SHORT).show();
-                        }
+                            String errorMessage = task.getException().getMessage();
+                            Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();                        }
                     }
                 });
     }
+
 }

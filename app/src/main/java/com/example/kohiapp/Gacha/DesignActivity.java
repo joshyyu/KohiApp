@@ -35,8 +35,6 @@ public class DesignActivity extends AppCompatActivity {
         // Initialize Firestore
         db = FirebaseFirestore.getInstance();
 
-
-
         configureMenuButton();
         loadData();
     }
@@ -117,7 +115,6 @@ public class DesignActivity extends AppCompatActivity {
                 ds33, ds34, ds35, ds36,dg1, dg2, dg3, dg4, dg5, dg6, dg7, dg8);
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseFirestore.collection("users_wallpaper_data").document(userID).set(wallpaperModel);
-
     }
 
     private void configureMenuButton() {

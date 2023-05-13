@@ -20,8 +20,7 @@ public class Gacha {
     private List<Reward> rewards;
     private Random random;
     private FirebaseFirestore db;
-    private CollectionReference rewardsRef;
-    private CollectionReference userRewardsRef;
+    private CollectionReference userRewardsRef,rewardsRef;
     private String uid, rewardGift;
     private ArrayList<String> userRewards;
 

@@ -64,10 +64,6 @@ public class SummonActivity extends AppCompatActivity {
         zsummon_text = findViewById(R.id.txt_summon);
         zsummon_png = findViewById(R.id.png_reward);
 
-
-
-        ImageButton zsummon = (ImageButton) findViewById(R.id.btn_summon);
-
         String userId = firebaseAuth.getUid();
 
         gacha = new Gacha(userId);
@@ -293,7 +289,7 @@ public class SummonActivity extends AppCompatActivity {
         ImageButton zsummon = (ImageButton) findViewById(R.id.btn_summon);
 
         int randomNumber = (int) (Math.random() * 10) + 1;
-        if (randomNumber <= 4) {
+        if (randomNumber <= 3) {
 
             gacha.play();
             String rewardGift = gacha.getRewardGift();
@@ -491,7 +487,6 @@ public class SummonActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-
         saveData();
     }
 

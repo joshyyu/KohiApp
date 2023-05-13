@@ -104,15 +104,13 @@ public class NoteActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        getDataData();
+        getData();
     }
 
-    private void getDataData() {
+    private void getData() {
         ConstraintLayout yConstraintLayout = findViewById(R.id.notes_activity);
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         String userID = firebaseAuth.getUid();
-
 
         db.collection("notes")
                 .whereEqualTo("uid",FirebaseAuth.getInstance().getUid())
