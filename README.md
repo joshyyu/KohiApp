@@ -1,5 +1,5 @@
 # KohiApp
-Final Year Project. Productivity app called Kohi
+Final Year Project. Productivity app called Kohi Please download the master branch. Stage is the backup where it was used for version control 
 
 
 X19369011.student.ncirl.ie
