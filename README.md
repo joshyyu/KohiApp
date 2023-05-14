@@ -7,5 +7,5 @@ BSHCSD4
 Joswel Bautista
 
 Download the APK file of the application to run on your phone here!
-[Download Kohi](url)
+[Download Kohi](https://drive.google.com/drive/folders/1B6Ii56TePfi_1b4Tvn_BOKFi_GWLy1DB?usp=sharing)
 
