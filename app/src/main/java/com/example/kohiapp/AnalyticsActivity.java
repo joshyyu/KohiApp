@@ -62,6 +62,7 @@ public class AnalyticsActivity extends AppCompatActivity {
         configureMenuButton();
         plotData();
         plotLineChart();
+
         // Set listener for calendar view
         calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             // Format selected date
@@ -85,16 +86,18 @@ public class AnalyticsActivity extends AppCompatActivity {
         if (selectedDate != null) {
             // Filter data by selected date
             Calendar calendar = Calendar.getInstance();
+
             try {
                 calendar.setTime(new SimpleDateFormat("MM/dd/yy", Locale.US).parse(selectedDate));
                 Timestamp startTimestamp = new Timestamp(calendar.getTime());
                 calendar.add(Calendar.DAY_OF_MONTH, 1);
-                Timestamp endTimestamp = new Timestamp(calendar.getTime());
+                Timestamp  endTimestamp = new Timestamp(calendar.getTime());
                 query = query.whereGreaterThanOrEqualTo("timestamp", startTimestamp)
                         .whereLessThan("timestamp", endTimestamp);
             } catch (Exception e) {
                 Log.e(TAG, "Error parsing selected date", e);
-            }
+            }   
+
         }
 
         query.limit(4)

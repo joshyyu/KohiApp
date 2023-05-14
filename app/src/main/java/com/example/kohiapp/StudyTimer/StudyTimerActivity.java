@@ -97,6 +97,7 @@ public class StudyTimerActivity extends AppCompatActivity {
                 resetTimer();
             }
         });
+
         xAppClosedText.setVisibility(View.INVISIBLE);
         loadData();
         updateCountDownText();

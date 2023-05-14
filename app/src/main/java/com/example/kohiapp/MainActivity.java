@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
                     // Calculate the start time for the timer in milliseconds
                     START_TIME_IN_MILLIS = (long) time * 60 * 1000;
+//                    START_TIME_IN_MILLIS = (long) time * 60 * 1;
 
                     // Start the study timer activity
                     startActivity(new Intent(MainActivity.this, StudyTimerActivity.class));
