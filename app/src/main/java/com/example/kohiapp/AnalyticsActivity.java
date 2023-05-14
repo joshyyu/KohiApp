@@ -91,12 +91,12 @@ public class AnalyticsActivity extends AppCompatActivity {
                 calendar.setTime(new SimpleDateFormat("MM/dd/yy", Locale.US).parse(selectedDate));
                 Timestamp startTimestamp = new Timestamp(calendar.getTime());
                 calendar.add(Calendar.DAY_OF_MONTH, 1);
-                Timestamp  endTimestamp = new Timestamp(calendar.getTime());
+                Timestamp endTimestamp = new Timestamp(calendar.getTime());
                 query = query.whereGreaterThanOrEqualTo("timestamp", startTimestamp)
                         .whereLessThan("timestamp", endTimestamp);
             } catch (Exception e) {
                 Log.e(TAG, "Error parsing selected date", e);
-            }   
+            }
 
         }
 
