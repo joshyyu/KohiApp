@@ -48,6 +48,6 @@ Password: qwerasdf
 
 ## Additional Information
 Here is my linkedin Page
-* LinkedIN: https://www.linkedin.com/in/joswel-bautista
+* LinkedIn: https://www.linkedin.com/in/joswel-bautista
 
 
