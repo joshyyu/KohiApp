@@ -46,8 +46,8 @@ Password: qwerasdf
 * Master
 * Stage
 
-## Additional Documentation and Acknowledgments
-if there are any issues with installations please follow the ruby on rails guide documentation
+## Additional Information
+Here is my linkedin Page
 * LinkedIN: https://www.linkedin.com/in/joswel-bautista
 
 
